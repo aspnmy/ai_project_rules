@@ -1,13 +1,28 @@
-# WSL2开发环境管理配置
 {
-  "wsl_devpath": "win11",
+  "_comment": "WSL2开发环境配置 - 支持Windows容器和Linux环境",
+  "wsl_devpath": "${wsl-distro}",
   "wsl_usr": "devman",
   "wsl_pwd": "devman",
-  "wsl_distro": "Ubuntu-22.04",
+  "wsl_distro": "Debian",
+  "wsl_distro_info_file": "./wsl-distro.info",
   "project_path": "./",
   "backup_path": "wsl_backups",
   "auto_copy": true,
   "auto_compile": false,
+  "container_ports": {
+    "rdp": 4489,
+    "http": 4818,
+    "vnc": 4777
+  },
+  "supported_distros": {
+    "windows": ["win11", "win11l", "win7u", "win2025"],
+    "linux": ["Debian", "Ubuntu", "CentOS", "Arch"]
+  },
+  "dev_paths": {
+    "windows_container": "c:\\\\${wsl-usr}\\\\git_data\\\\${gitbranch}",
+    "linux_wsl": "${HOME}/git_data/${gitbranch}",
+    "windows_wsl": "/mnt/c/Users/${wsl-usr}/git_data/${gitbranch}"
+  },
   "sync_extensions": [".py", ".js", ".ts", ".cpp", ".c", ".h", ".rs", ".go", ".java"],
   "compile_commands": {
     ".py": "python3 -m py_compile {file}",
@@ -27,5 +42,30 @@
     "PATH": "/usr/local/bin:/usr/bin:/bin",
     "LANG": "en_US.UTF-8",
     "TERM": "xterm-256color"
+  },
+  "podman_compose_file": "./podman-win-wsl2",
+  "install_scripts": {
+    "bash": "./install_podman_windows.sh",
+    "python": "./install_podman_windows.py"
+  },
+  "podman_config": {
+    "compose_file": "podman-win-wsl2-compose.yml",
+    "container_prefix": "windows-",
+    "default_ports": {
+      "rdp": 4489,
+      "http": 4818,
+      "vnc": 4777
+    },
+    "resource_limits": {
+      "cpus": "2.0",
+      "memory": "4G"
+    },
+    "network_subnet": "172.20.0.0/16",
+    "compose_files_priority": [
+      "podman-win-wsl2",
+      "podman-win-wsl2-compose.yml"
+    ],
+    "docker_image_gateway": "https://gateway.cf.shdrr.org/",
+    "windows_image": "dockurr/windows"
   }
 }

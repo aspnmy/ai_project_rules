@@ -1,0 +1,98 @@
+# Podman Windows容器配置文件
+# 用于配置Windows容器环境的Podman Compose文件
+
+version: '3.8'
+
+services:
+  windows-dev:
+    image: mcr.microsoft.com/windows/servercore:ltsc2022
+    container_name: ${CONTAINER_NAME:-windows-dev}
+    hostname: ${HOSTNAME:-win-dev}
+    
+    # 端口映射
+    ports:
+      - "${RDP_PORT:-4489}:3389"    # RDP远程桌面
+      - "${HTTP_PORT:-4818}:80"     # HTTP服务
+      - "${VNC_PORT:-4777}:5900"    # VNC远程桌面
+      
+    # 环境变量
+    environment:
+      - USERNAME=${WSL_USR:-devman}
+      - PASSWORD=${WSL_PWD:-devman}
+      - COMPUTERNAME=${HOSTNAME:-win-dev}
+      - TZ=Asia/Shanghai
+      
+    # 卷挂载
+    volumes:
+      - type: bind
+        source: ${DEV_PATH:-c:\\devman\\git_data\\main}
+        target: c:\\workspace
+        bind:
+          create_host_path: true
+      
+    # 资源限制
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    
+    # 网络配置
+    networks:
+      - dev-network
+    
+    # 重启策略
+    restart: unless-stopped
+    
+    # 健康检查
+    healthcheck:
+      test: ["CMD", "powershell", "-Command", "Get-Process -Name 'winlogon' -ErrorAction SilentlyContinue"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    # 标签
+    labels:
+      - "wsl2.dev=true"
+      - "wsl2.distro=${WSL_DISTRO:-win11}"
+      - "wsl2.branch=${GIT_BRANCH:-main}"
+      - "wsl2.created=$(date +%Y%m%d-%H%M%S)"
+
+  # 可选：开发工具容器
+  dev-tools:
+    image: alpine:latest
+    container_name: ${CONTAINER_NAME:-dev-tools}
+    command: sleep infinity
+    volumes:
+      - type: bind
+        source: ${DEV_PATH:-c:\\devman\\git_data\\main}
+        target: /workspace
+        bind:
+          create_host_path: true
+    networks:
+      - dev-network
+    depends_on:
+      - windows-dev
+    labels:
+      - "wsl2.dev=true"
+      - "wsl2.type=tools"
+
+networks:
+  dev-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+    labels:
+      - "wsl2.network=true"
+
+# 配置说明：
+# 1. 容器名称：${CONTAINER_NAME} - 动态容器名称
+# 2. 端口映射：RDP(3389->4489), HTTP(80->4818), VNC(5900->4777)
+# 3. 开发路径：挂载到容器内c:\workspace
+# 4. 资源限制：CPU 2核，内存 4GB
+# 5. 网络：使用桥接网络，子网172.20.0.0/16

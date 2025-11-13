@@ -214,21 +214,30 @@
 ## WSL2纯净开发环境规则：
 ### 高优先级规范（必须遵守）
 * **环境配置**：
-  - 开发环境路径：${wsl-devpath} ${cat ..\wsl-devpath.info}🔴
-  - 用户名配置：${wsl-usr} devman🔴
-  - 密码配置：${wsl-pwd} devman🔴
+  - 开发环境系统版本：${wsl-distro} '.\wsl-distro.info'🔴
+    - ${wsl-distro}变量值从`.\wsl-distro.info`文件中读取
+    - 支持值：`win11`(Win11专业版), `win11l`(Win11 LTS版), `win7u`(Win7专业版), `win2025`(Win Server 2025)
+    - 当${wsl-distro}为上述Windows版本时，在WSL2中安装Podman环境并运行`podman-win-wsl2`配置
+    - 容器默认端口：RDP(4489), HTTP(4818), VNC(4777)
+    - 容器默认凭据：${wsl-usr}/${wsl-pwd}
+  - 开发环境路径：${wsl-devpath} '$HOME\git_data\${gitbranch}\'🔴
+    - Windows容器环境：`c:\${wsl-usr}\git_data\${gitbranch}`
+    - Linux/WSL环境：`${HOME}/git_data/${gitbranch}`
+    - 项目代码同步到此路径进行编译调试
+  - 用户名配置：${wsl-usr} 'devman'🔴
+  - 密码配置：${wsl-pwd} 'devman'🔴
 * **环境使用**：
-  - 本地准备Win11开发环境用于IDE对接🔴
-  - 编译调试时将${filename}复制到${wsl-devpath}中进行调试或编译🔴
+  - 本地准备${wsl-distro}开发环境用于IDE对接🔴
+  - 编译调试时将${filename}复制到${wsl-distro}中进行调试或编译🔴
   - 保证debug或编译环境独立干净，不受宿主机环境配置污染🔴
 * **环境销毁**：
-  - 用户输入del-${wsl-devpath}时从WSL环境中销毁此用例🔴
-  - 销毁前需比较${wsl-devpath}代码和实际项目中同名代码内容是否一致🔴
-  - 如果不一致，按文本版本控制规则更名后复制到项目中再销毁${wsl-devpath}🔴
-  - 如果一致则直接销毁${wsl-devpath}🔴
+  - 用户输入del-${wsl-distro}时从WSL环境中销毁此用例🔴
+  - 销毁前需比较${wsl-distro}代码和实际项目中同名代码内容是否一致🔴
+  - 如果不一致，按文本版本控制规则更名后复制到项目中再销毁${wsl-distro}🔴
+  - 如果一致则直接销毁${wsl-distro}🔴
 * **环境管理**：
-  - 用户输入res-${wsl-devpath}时从WSL环境中重启此用例🔴
-  - 用户输入stop-${wsl-devpath}时从WSL环境中停用此用例🔴
+  - 用户输入res-${wsl-distro}时从WSL环境中重启此用例🔴
+  - 用户输入stop-${wsl-distro}时从WSL环境中停用此用例🔴
 
 ## 规则优先级漏洞逻辑自动调整规则：
 ### 高优先级规范（必须遵守）

@@ -1,0 +1,49 @@
+# 启动Windows 开发容器
+# 参考：https://github.com/dockurr/windows
+# 启动命令：podman-compose -f podman-win11-wsl2.yml up -d
+# ${uuid} 容器唯一标识 格式：${yyyy-mm-dd HH:mm}-${wsl-distro}-${uuid}
+# ${wsl-distro} 版本：11 ,11l,7u,2025 
+# 容器默认用户名密码:${wsl-usr}/${wsl-pwd}
+# 容器默认RDP端口：4489
+# 容器默认HTTP端口：4818
+# 容器默认VNC端口：4777
+# ${wsl-distro} 版本说明：
+# 11 ：Windows 11 专业版
+# 11l ：Windows 11 lts版本
+# 7u ：Windows 7 专业版
+# 2025 ：Windows Server 2025 专业版
+# ${dockerimage-gateway} ：docker镜像跳转网关 https://gateway.cf.shdrr.org/
+  ${uuid}-windows-${wsl-distro}:
+    image: https://${dockerimage-gateway}/dockurr/windows
+    container_name: ${uuid}-windows-${wsl-distro}
+    environment:
+      #VERSION: "https://resource.yearnstudio.cn/d/123pan/pan/%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F%20%C2%B7%20System%20Images%E2%80%8E%E2%80%8E%E2%80%8E%E2%80%8E%E2%80%8E%E2%80%8E/Windows/I%20tell%20you%E7%89%88%E6%9C%AC/Windows%20XP/zh-hans_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-74070.iso"
+      DISK_SIZE: "40G"
+      #VERSION: "https://files.devrom.org:45443/zh-hans_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-74070.iso"
+      VERSION: "${wsl-distro}"
+      RAM_SIZE: "8G"
+      CPU_CORES: "4"
+      LANGUAGE: "Chinese"
+      REGION: "en-US"
+      KEYBOARD: "en-US"
+      USERNAME: "${wsl-usr}"
+      PASSWORD: "${wsl-pwd}"
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 4818:8181/udp
+      - 4818:8181/tcp
+      - 4777:8006
+      - 4489:3389/tcp
+      - 4489:3389/udp
+    volumes:
+      - ${uuid}-storage-${wsl-distro}:/storage
+      - ${uuid}-data-${wsl-distro}:/data"
+    restart: always
+    stop_grace_period: 2m
+volumes:
+  ${uuid}-storage-${wsl-distro}:
+  ${uuid}-data-${wsl-distro}:

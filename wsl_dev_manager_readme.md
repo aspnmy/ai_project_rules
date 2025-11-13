@@ -7,7 +7,7 @@ WSL2开发环境管理器为IDE提供了完整的WSL2纯净开发环境管理功
 ## 环境配置规则
 
 ### 基础配置
-- **开发环境路径**: `${wsl-devpath} win11`
+- **开发环境系统版本**: `${wsl-distro} .\wsl-distro.info`
 - **用户名配置**: `${wsl-usr} devman`
 - **密码配置**: `${wsl-pwd} devman`
 
@@ -53,7 +53,7 @@ python wsl_dev_manager.py stop
 python wsl_dev_manager.py status
 ```
 
-#### 5. 销毁环境（del-${wsl-devpath}）
+#### 5. 销毁环境（del-${wsl-distro}）
 ```bash
 # 执行环境销毁流程
 python wsl_ide_integrator.py del
@@ -87,7 +87,16 @@ python wsl_ide_integrator.py del
 }
 ```
 
-## 支持的文件类型
+##### 支持的文件类型
+
+### Podman配置文件优先级
+
+系统支持两种Podman配置文件，按以下优先级使用：
+
+1. **主配置文件**: `podman-win-wsl2` - 使用 dockurr/windows 镜像，功能完整
+2. **备用配置文件**: `podman-win-wsl2-compose.yml` - 使用标准 Windows Server Core 镜像
+
+如果主配置文件不完整（缺少YAML必要结构），系统会自动生成完整的compose文件。
 
 ### 编程语言支持
 - **Python**: `.py` - 使用 `python3 -m py_compile` 编译
