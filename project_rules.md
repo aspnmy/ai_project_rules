@@ -147,14 +147,14 @@
 * **文件格式规范**：
   ```
   [生产代码]
-  true-${filename}
+  true-${filename}-${platform}-${version}-${num+1}
   
   [临时生成]
-  temp-${filename}
+  temp-${filename}-${platform}-${version}-${num+1}
   
   [测试代码]
-  test-${filename}
-  autotest--${filename}
+  test-${filename}-${platform}-${version}-${num+1}
+  autotest--${filename}-${platform}-${version}-${num+1}
   ```
 
 ### 中优先级规范（Git提交流程）
@@ -210,6 +210,25 @@
   - 修改后需要同步修改目前的语法规范🔴
 * **版本管理**：
   - 考虑到语法版本的问题，在修改语法规范时需要表明此语法修改对应的版本号🔴
+
+## WSL2纯净开发环境规则：
+### 高优先级规范（必须遵守）
+* **环境配置**：
+  - 开发环境路径：${wsl-devpath} ${cat ..\wsl-devpath.info}🔴
+  - 用户名配置：${wsl-usr} devman🔴
+  - 密码配置：${wsl-pwd} devman🔴
+* **环境使用**：
+  - 本地准备Win11开发环境用于IDE对接🔴
+  - 编译调试时将${filename}复制到${wsl-devpath}中进行调试或编译🔴
+  - 保证debug或编译环境独立干净，不受宿主机环境配置污染🔴
+* **环境销毁**：
+  - 用户输入del-${wsl-devpath}时从WSL环境中销毁此用例🔴
+  - 销毁前需比较${wsl-devpath}代码和实际项目中同名代码内容是否一致🔴
+  - 如果不一致，按文本版本控制规则更名后复制到项目中再销毁${wsl-devpath}🔴
+  - 如果一致则直接销毁${wsl-devpath}🔴
+* **环境管理**：
+  - 用户输入res-${wsl-devpath}时从WSL环境中重启此用例🔴
+  - 用户输入stop-${wsl-devpath}时从WSL环境中停用此用例🔴
 
 ## 规则优先级漏洞逻辑自动调整规则：
 ### 高优先级规范（必须遵守）

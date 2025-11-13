@@ -1,0 +1,31 @@
+# WSL2开发环境管理配置
+{
+  "wsl_devpath": "win11",
+  "wsl_usr": "devman",
+  "wsl_pwd": "devman",
+  "wsl_distro": "Ubuntu-22.04",
+  "project_path": "./",
+  "backup_path": "wsl_backups",
+  "auto_copy": true,
+  "auto_compile": false,
+  "sync_extensions": [".py", ".js", ".ts", ".cpp", ".c", ".h", ".rs", ".go", ".java"],
+  "compile_commands": {
+    ".py": "python3 -m py_compile {file}",
+    ".c": "gcc -o {output} {file}",
+    ".cpp": "g++ -o {output} {file}",
+    ".rs": "rustc -o {output} {file}",
+    ".go": "go build -o {output} {file}"
+  },
+  "debug_commands": {
+    ".py": "python3 -m pdb {file}",
+    ".c": "gdb {output}",
+    ".cpp": "gdb {output}",
+    ".rs": "rust-gdb {output}",
+    ".go": "dlv debug {file}"
+  },
+  "environment_vars": {
+    "PATH": "/usr/local/bin:/usr/bin:/bin",
+    "LANG": "en_US.UTF-8",
+    "TERM": "xterm-256color"
+  }
+}
