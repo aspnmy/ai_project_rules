@@ -15,6 +15,10 @@ NC='\033[0m' # No Color
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_FILE="${SCRIPT_DIR}/wsl-distro.info"
 PODMAN_COMPOSE_FILE="${SCRIPT_DIR}/podman-win-wsl2"
+CONTAINER_UUID_FILE="${SCRIPT_DIR}/.container_uuid"
+COMPOSE_FILE_PATH="${SCRIPT_DIR}/.compose_file"
+DOWNLOAD_GATEWAY_FILE="${SCRIPT_DIR}/download-gateway"
+DOCKERIMAGE_GATEWAY_FILE="${SCRIPT_DIR}/dockerimage-gateway"
 
 # 生成完整的compose文件
 generate_compose_file() {
@@ -53,22 +57,51 @@ WSL_DISTRO="Debian"
 WSL_USR="devman"
 WSL_PWD="devman"
 UUID=""
+DOWNLOAD_GATEWAY="gateway.cf.shdrr.org"
+DOCKERIMAGE_GATEWAY="drrpull.shdrr.org"
+
+# 读取网关域名配置
+load_gateway_domains() {
+    # 读取下载网关域名
+    if [[ -f "$DOWNLOAD_GATEWAY_FILE" ]]; then
+        gateway=$(head -n 1 "$DOWNLOAD_GATEWAY_FILE" | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+        if [[ -n "$gateway" ]]; then
+            DOWNLOAD_GATEWAY="$gateway"
+            echo -e "${GREEN}下载网关域名: $DOWNLOAD_GATEWAY${NC}"
+        fi
+    else
+        echo -e "${BLUE}使用默认下载网关域名: $DOWNLOAD_GATEWAY${NC}"
+    fi
+    
+    # 读取Docker镜像网关域名
+    if [[ -f "$DOCKERIMAGE_GATEWAY_FILE" ]]; then
+        gateway=$(head -n 1 "$DOCKERIMAGE_GATEWAY_FILE" | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+        if [[ -n "$gateway" ]]; then
+            DOCKERIMAGE_GATEWAY="$gateway"
+            echo -e "${GREEN}Docker镜像网关域名: $DOCKERIMAGE_GATEWAY${NC}"
+        fi
+    else
+        echo -e "${BLUE}使用默认Docker镜像网关域名: $DOCKERIMAGE_GATEWAY${NC}"
+    fi
+    
+    # 导出环境变量
+    export DOWNLOAD_GATEWAY="$DOWNLOAD_GATEWAY"
+    export DOCKERIMAGE_GATEWAY="$DOCKERIMAGE_GATEWAY"
+}
 
 # 读取配置文件
 load_config() {
     if [[ -f "$CONFIG_FILE" ]]; then
         echo -e "${BLUE}正在读取配置文件: $CONFIG_FILE${NC}"
-        source "$CONFIG_FILE"
         
-        # 提取wsl-distro值
-        WSL_DISTRO=$(grep "^wsl-distro=" "$CONFIG_FILE" 2>/dev/null | cut -d'=' -f2 || echo "Debian")
+        # 直接读取第一行非空内容
+        WSL_DISTRO=$(head -n 1 "$CONFIG_FILE" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
         
-        # 如果没有找到wsl-distro，尝试直接读取文件内容
-        if [[ -z "$WSL_DISTRO" ]]; then
-            WSL_DISTRO=$(head -n1 "$CONFIG_FILE" | tr -d '\r\n')
+        if [[ -n "$WSL_DISTRO" ]]; then
+            echo -e "${GREEN}配置的系统版本: $WSL_DISTRO${NC}"
+        else
+            echo -e "${YELLOW}配置文件内容为空，使用默认值: $WSL_DISTRO${NC}"
         fi
-        
-        echo -e "${GREEN}配置的系统版本: $WSL_DISTRO${NC}"
     else
         echo -e "${YELLOW}配置文件不存在，使用默认值: $WSL_DISTRO${NC}"
     fi
@@ -295,6 +328,7 @@ show_help() {
 main() {
     # 读取配置
     load_config
+    load_gateway_domains  # 加载网关域名配置
     
     case "${1:-help}" in
         install)

@@ -12,9 +12,9 @@
 # 11l ：Windows 11 lts版本
 # 7u ：Windows 7 专业版
 # 2025 ：Windows Server 2025 专业版
-# ${dockerimage-gateway} ：docker镜像跳转网关 https://gateway.cf.shdrr.org/
+# ${dockerimage-gateway} ：docker镜像跳转网关 drrpull.shdrr.org
   ${uuid}-windows-${wsl-distro}:
-    image: https://${dockerimage-gateway}/dockurr/windows
+    image: ${dockerimage-gateway}/dockurr/windows
     container_name: ${uuid}-windows-${wsl-distro}
     environment:
       #VERSION: "https://resource.yearnstudio.cn/d/123pan/pan/%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F%20%C2%B7%20System%20Images%E2%80%8E%E2%80%8E%E2%80%8E%E2%80%8E%E2%80%8E%E2%80%8E/Windows/I%20tell%20you%E7%89%88%E6%9C%AC/Windows%20XP/zh-hans_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-74070.iso"

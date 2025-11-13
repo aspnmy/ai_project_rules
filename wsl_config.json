@@ -65,7 +65,19 @@
       "podman-win-wsl2",
       "podman-win-wsl2-compose.yml"
     ],
-    "docker_image_gateway": "https://gateway.cf.shdrr.org/",
-    "windows_image": "dockurr/windows"
+    "docker_image_gateway": "https://gateway.cf.shdr.org/",
+        "windows_image": "dockurr/windows",
+        "gateway_domains": {
+            "download_gateway_file": "./download-gateway",
+            "dockerimage_gateway_file": "./dockerimage-gateway",
+            "download_gateway": "gateway.cf.shdr.org",
+            "dockerimage_gateway": "drrpull.shdr.org"
+        },
+    "gateway_domains": {
+      "download_gateway_file": "./download-gateway",
+      "dockerimage_gateway_file": "./dockerimage-gateway",
+      "default_download_gateway": "gateway.cf.shdrr.org",
+      "default_dockerimage_gateway": "drrpull.shdrr.org"
+    }
   }
 }

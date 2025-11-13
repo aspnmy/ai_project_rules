@@ -1,0 +1,5 @@
+# IDE, PATH ,JSON
+# IDE 代表使用IDE中的设置
+# PATH 代表使用宿主机环境变量中的设置
+# JSON 代表使用本文件同级目录中registerConfig.json文件中的设置
+IDE

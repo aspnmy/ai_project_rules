@@ -30,12 +30,16 @@ class PodmanWindowsInstaller:
         self.podman_compose_file = self.script_dir / "podman-win-wsl2"
         self.container_uuid_file = self.script_dir / ".container_uuid"
         self.compose_file_path = self.script_dir / ".compose_file"
+        self.download_gateway_file = self.script_dir / "download-gateway"
+        self.dockerimage_gateway_file = self.script_dir / "dockerimage-gateway"
         
         # 默认配置
         self.wsl_distro = "Debian"
         self.wsl_usr = "devman"
         self.wsl_pwd = "devman"
         self.uuid = ""
+        self.download_gateway = "gateway.cf.shdrr.org"
+        self.dockerimage_gateway = "drrpull.shdrr.org"
         
         # 支持的Windows版本
         self.windows_distros = ["win11", "win11l", "win7u", "win2025"]
@@ -55,6 +59,38 @@ class PodmanWindowsInstaller:
     def log_error(self, message):
         """输出错误日志"""
         print(f"{Colors.RED}{message}{Colors.NC}")
+    
+    def load_gateway_domains(self):
+        """读取网关域名配置"""
+        # 读取下载网关域名
+        if self.download_gateway_file.exists():
+            try:
+                with open(self.download_gateway_file, 'r', encoding='utf-8') as f:
+                    gateway = f.read().strip().split('\n')[0].strip()
+                    if gateway:
+                        self.download_gateway = gateway
+                        self.log_success(f"下载网关域名: {self.download_gateway}")
+            except Exception as e:
+                self.log_warning(f"读取下载网关域名失败: {e}，使用默认值: {self.download_gateway}")
+        else:
+            self.log_info(f"使用默认下载网关域名: {self.download_gateway}")
+        
+        # 读取Docker镜像网关域名
+        if self.dockerimage_gateway_file.exists():
+            try:
+                with open(self.dockerimage_gateway_file, 'r', encoding='utf-8') as f:
+                    gateway = f.read().strip().split('\n')[0].strip()
+                    if gateway:
+                        self.dockerimage_gateway = gateway
+                        self.log_success(f"Docker镜像网关域名: {self.dockerimage_gateway}")
+            except Exception as e:
+                self.log_warning(f"读取Docker镜像网关域名失败: {e}，使用默认值: {self.dockerimage_gateway}")
+        else:
+            self.log_info(f"使用默认Docker镜像网关域名: {self.dockerimage_gateway}")
+        
+        # 设置环境变量
+        os.environ['DOWNLOAD_GATEWAY'] = self.download_gateway
+        os.environ['DOCKERIMAGE_GATEWAY'] = self.dockerimage_gateway
     
     def load_config(self):
         """读取配置文件"""
@@ -387,6 +423,7 @@ def main():
     """主函数"""
     installer = PodmanWindowsInstaller()
     installer.load_config()
+    installer.load_gateway_domains()  # 加载网关域名配置
     
     # 获取命令参数
     command = sys.argv[1] if len(sys.argv) > 1 else "help"

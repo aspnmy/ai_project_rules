@@ -1,0 +1,26 @@
+target/**
+builder/local_env/**
+
+builder/build-WinGui/dist/build/**
+builder/build-WinGui/dist/extractions/**
+**.spec
+builder/build-WinGui/dist/binwalk_gui.exe
+builder/build-WinGui/dist/binwalk.exe
+builder/build-WinGui/dist/Tests/**
+
+.trae/
+dependencies/binwalk-v2.3.4/
+
+builder/local_env/
+**/*.logs
+**/*.log
+**/**.pyc
+*.pyc
+
+# autotests
+**/autotests/**
+test_*.py
+*.cpython-313.pyc
+
+# 容器仓库配置文件
+registerConfig.json

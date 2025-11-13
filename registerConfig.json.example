@@ -1,0 +1,22 @@
+{
+  "docker_registry": {
+    "url": "https://registry.hub.docker.com",
+    "username": "your_username",
+    "password": "your_password",
+    "email": "your_email@example.com"
+  },
+  "private_registry": {
+    "url": "https://your-private-registry.com",
+    "username": "private_username", 
+    "password": "private_password",
+    "email": "private_email@example.com"
+  },
+  "image_sources": {
+    "portainerEE": "ghcr.io/aspnmy/portainer-ee:2.34.0-alpine",
+    "portainerCE": "portainer/portainer-ce:lts"
+  },
+  "socket_paths": {
+    "podman": "/run/podman/podman.sock",
+    "docker": "/var/run/docker.sock"
+  }
+}

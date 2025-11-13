@@ -16,8 +16,12 @@ class WSLDevPathManager:
     def __init__(self, config_file="wsl_config.json"):
         self.script_dir = Path(__file__).parent.absolute()
         self.config_file = self.script_dir / config_file
+        self.download_gateway_file = self.script_dir / "download-gateway"
+        self.dockerimage_gateway_file = self.script_dir / "dockerimage-gateway"
         self.config = self.load_config()
         self.current_distro = self.get_current_distro()
+        self.download_gateway = self.get_gateway_from_file(self.download_gateway_file, "gateway.cf.shdrr.org")
+        self.dockerimage_gateway = self.get_gateway_from_file(self.dockerimage_gateway_file, "drrpull.shdrr.org")
     
     def load_config(self):
         """加载配置文件"""
@@ -31,6 +35,15 @@ class WSLDevPathManager:
         else:
             return self.get_default_config()
     
+    def get_gateway_from_file(self, file_path, default):
+        """从文件读取网关域名"""
+        if file_path.exists():
+            try:
+                return file_path.read_text(encoding="utf-8").strip()
+            except:
+                pass
+        return default
+
     def get_default_config(self):
         """获取默认配置"""
         return {
@@ -44,7 +57,9 @@ class WSLDevPathManager:
             "supported_distros": {
                 "windows": ["win11", "win11l", "win7u", "win2025"],
                 "linux": ["Debian", "Ubuntu", "CentOS", "Arch"]
-            }
+            },
+            "download_gateway": self.download_gateway,
+            "dockerimage_gateway": self.dockerimage_gateway
         }
     
     def get_current_distro(self):
@@ -145,17 +160,19 @@ class WSLDevPathManager:
             "wsl_usr": self.config.get("wsl_usr", "devman"),
             "wsl_pwd": self.config.get("wsl_pwd", "devman"),
             "available_compose_files": self.get_podman_compose_files(),
-            "active_compose_file": self.get_active_compose_file()
+            "active_compose_file": self.get_active_compose_file(),
+            "download_gateway": self.download_gateway,
+            "dockerimage_gateway": self.dockerimage_gateway
         }
         
-        if self.is_windows_distro():
+        if info['is_windows_distro']:
             podman_config = self.config.get("podman_config", {})
             info.update({
                 "container_name": f"windows-{self.current_distro}",
                 "rdp_port": info["container_ports"]["rdp"],
                 "http_port": info["container_ports"]["http"],
                 "vnc_port": info["container_ports"]["vnc"],
-                "docker_image_gateway": podman_config.get("docker_image_gateway", "https://gateway.cf.shdrr.org/"),
+                "docker_image_gateway": f"https://{self.dockerimage_gateway}/",
                 "windows_image": podman_config.get("windows_image", "dockurr/windows")
             })
         
@@ -183,6 +200,9 @@ class WSLDevPathManager:
                 else:
                     print(f"  {i}. {file_name}")
         
+        print(f"\n网关信息:")
+        print(f"  下载网关: {info['download_gateway']}")
+        print(f"  镜像网关: {info['dockerimage_gateway']}")
         if info['is_windows_distro']:
             print(f"\n容器端口:")
             print(f"  RDP端口: {info['rdp_port']}")

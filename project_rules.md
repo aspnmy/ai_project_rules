@@ -165,6 +165,30 @@
 * **全面清理**：
   - 如果用户指令是iscleanfull或全面清理，必须全部清除[临时生成]和[测试代码]下面的文件🟡
 
+## 全局变量规则（下载域名管理）：
+### 高优先级规范（必须遵守）
+* **下载网关域名管理**：
+  - `download-gateway` 文件记录下载文件跳转域名，用于文件下载时的域名替换🔴
+  - `dockerimage-gateway` 文件记录Docker镜像跳转域名，用于镜像拉取时的域名替换🔴
+  - 文件内容格式：每行一个域名，优先使用第一行有效域名🔴
+  - 域名必须包含完整的协议头（如：gateway.cf.shdrr.org）🔴
+
+* **域名使用规则**：
+  - 文件下载URL：`https://${download-gateway}/xxx/xxx/xxx`🔴
+  - Docker镜像URL：`https://${dockerimage-gateway}/xxx/xxx/xxx`🔴
+  - 安装脚本必须自动读取这两个文件并更新相关配置🔴
+  - 每次安装WSL开发容器时，都必须更新gateway数据到环境中🔴
+
+* **环境变量设置**：
+  - 脚本运行时必须设置 `DOWNLOAD_GATEWAY` 和 `DOCKERIMAGE_GATEWAY` 环境变量🔴
+  - 如果文件不存在或为空，使用默认域名（gateway.cf.shdrr.org 和 drrpull.shdrr.org）🔴
+  - 域名变更后必须同步更新所有相关配置文件🔴
+
+* **使用示例**：
+  - 下载文件：`https://${DOWNLOAD_GATEWAY}/files/tool.zip` → `https://gateway.cf.shdrr.org/files/tool.zip`🔴
+  - Docker镜像：`${DOCKERIMAGE_GATEWAY}/windows:latest` → `drrpull.shdrr.org/windows:latest`🔴
+  - 脚本中获取：`$DOWNLOAD_GATEWAY` 和 `$DOCKERIMAGE_GATEWAY`🔴
+
 ## 文本版本控制规则（不依赖git）：
 ### 高优先级规范（必须遵守）
 * **版本控制机制**：
@@ -239,11 +263,133 @@
   - 用户输入res-${wsl-distro}时从WSL环境中重启此用例🔴
   - 用户输入stop-${wsl-distro}时从WSL环境中停用此用例🔴
 
+> 📖 **详细说明文档**：请参考 [`wsl2_dev_environment_guide.md`](wsl2_dev_environment_guide.md) 获取完整的使用指南、最佳实践和故障排除信息。
+> 
+> ⚡ **快速参考卡**：请查看 [`wsl2_quick_reference.md`](wsl2_quick_reference.md) 获取常用命令和配置速查。
+
 ## 规则优先级漏洞逻辑自动调整规则：
 ### 高优先级规范（必须遵守）
 * **漏洞检查**：
   - 每次修改和更新此规则文件后，必须先检查一遍规则优先级漏洞🔴
   - 如果出现冲突或逻辑漏洞，先进行优化操作重新调整🔴
+
+---
+
+# 项目全局规则配置
+
+## 1. 容器仓库配置规则 (register-docker-login)
+
+### 配置模式
+- **IDE**: 使用IDE中的设置
+- **PATH**: 使用宿主机环境变量中的设置  
+- **JSON**: 使用同级目录中registerConfig.json文件中的设置
+
+### 重要说明
+- registerConfig.json文件排除在git外，不做版本控制提交
+- 文件路径: `.trae\rules\registerConfig.json`
+- 如需自定义参数，只需自定义参数相对路径即可
+
+## 2. 开发容器初始化工具 (build-image-tools)
+
+### 工具列表及说明
+此文件中的值代表在WSL环境中开发容器中安装的初始化工具：
+```
+buildah,git,curl,wget,portainerEE
+```
+
+### 安装规则
+- 如果工具没有Windows版本则不安装
+- 安装初始化工具必须使用download-gateway保证安装不会失败
+- 如果文件中包含portainerEE，则按照portainerEE-Compose文件在podman环境中安装
+
+### 工具详情
+- **buildah**: 容器构建工具
+- **git**: 版本控制工具
+- **curl**: 网络传输工具
+- **wget**: 文件下载工具
+- **portainerEE**: 容器管理界面（企业版）
+
+## 3. PortainerEE安装配置 (portainerEE-Compose)
+
+### 触发条件
+当build-image-tools中包含portainerEE时，使用此配置文件进行容器部署
+
+### 配置文件路径
+- 配置文件: `.trae\rules\portainerEE-Compose`
+- 如需自定义配置，只需修改此相对路径文件即可
+
+### 环境变量
+- `${socket_path}`: Docker/Podman socket路径
+- `${image_tag}`: 容器镜像标签
+
+## 4. 规则管理器 (rules_manager.py)
+
+### 功能说明
+- 统一管理所有全局规则配置
+- 支持多种配置模式（IDE、PATH、JSON）
+- 自动检测工具安装需求
+- 集成网关域名管理
+
+### 使用方法
+```python
+from rules_manager import GlobalRulesManager
+
+manager = GlobalRulesManager()
+config = manager.get_register_config()  # 获取容器仓库配置
+has_portainer = manager.has_portainer_ee()  # 检查是否需要安装PortainerEE
+```
+
+### 主要方法
+- `get_register_mode()`: 获取配置模式
+- `get_build_tools()`: 获取开发工具列表
+- `get_register_config()`: 获取容器仓库配置
+- `has_portainer_ee()`: 检查是否需要安装PortainerEE
+- `get_portainer_config()`: 获取Portainer配置
+
+## 5. 测试验证
+
+### 规则管理器测试
+运行测试脚本验证规则管理器功能：
+```bash
+cd .\\trae\\rules
+python test_rules_manager.py
+```
+
+### 测试覆盖范围
+- 配置模式获取测试
+- 开发工具列表测试
+- 容器仓库配置测试
+- PortainerEE需求检查测试
+- JSON配置模式测试
+- 环境变量配置模式测试
+
+---
+
+## 冲突检测与优化说明
+
+### 合并结果
+本文件已将两个规则文件内容进行合并，保留了最完整的规则体系：
+- 保留了`project_rules.md`中的详细优先级说明和完整规则
+- 整合了`project-rules.md`中的项目全局配置和规则管理器相关内容
+- 消除了重复内容，统一了规则表述
+
+### 逻辑一致性检查
+- ✅ 优先级分级体系完整保留
+- ✅ 项目代码修改规则完整保留  
+- ✅ 文件路径规范统一整合
+- ✅ 临时文件管理规则完整保留
+- ✅ 文本版本控制规则完整保留
+- ✅ Git提交规则统一整合
+- ✅ WSL2开发环境规则完整保留
+- ✅ 代码语法规范完整保留
+- ✅ 新增项目全局配置章节
+
+### 后续维护
+- 规则更新时请遵循优先级分级体系
+- 新增规则时请考虑与现有规则的兼容性
+- 定期检查规则间的逻辑一致性
+
+---
 
 ## 代码语法规范
 ### 编写shell脚本，应该遵循Google Shell编码风格指南：
