@@ -1,0 +1,46 @@
+# MCP服务器清单
+# 本文件记录常用需要装载的MCP服务器
+
+# 基础工具类MCP服务器
+#mcp-server-filesystem
+#mcp-server-fetch
+#mcp-server-github
+#mcp-server-git
+
+# 开发工具类MCP服务器  
+#mcp-server-python
+#mcp-server-nodejs
+#mcp-server-docker
+#mcp-server-kubernetes
+
+# 数据库类MCP服务器
+#mcp-server-postgresql
+#mcp-server-mongodb
+#mcp-server-redis
+#mcp-server-mysql
+
+# API集成类MCP服务器
+#mcp-server-openapi
+#mcp-server-graphql
+#mcp-server-rest
+
+# 云服务类MCP服务器
+#mcp-server-aws
+#mcp-server-azure
+#mcp-server-gcp
+
+# 消息队列类MCP服务器
+#mcp-server-rabbitmq
+#mcp-server-kafka
+#mcp-server-activemq
+
+# 监控日志类MCP服务器
+#mcp-server-prometheus
+#mcp-server-grafana
+#mcp-server-elasticsearch
+
+# 其他实用MCP服务器
+#mcp-server-slack
+#mcp-server-discord
+#mcp-server-telegram
+#mcp-server-email
