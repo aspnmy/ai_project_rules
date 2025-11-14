@@ -38,7 +38,7 @@ class TodoListProcessor:
     
     def __init__(self, todo_file_path: str):
         """
-        初始化处理器
+        初始化TodoListProcessor
         
         参数：
             todo_file_path: todo列表文件路径
@@ -46,9 +46,14 @@ class TodoListProcessor:
         self.todo_file_path = Path(todo_file_path)
         self.comment_lines = []  # 存储注释行
         self.todo_entries = []   # 存储todo条目 (path, priority, timestamp)
+        
         # 初始化规则加载器
         self.rules_loader = RulesLoader()
-        self.rules_loader.load_rules()
+        self.rules_loader.load_all_rules()
+        
+        # 初始化日志记录器
+        global logger
+        logger = logging.getLogger(__name__)
     
     def read_todo_file(self) -> bool:
         """
@@ -122,29 +127,73 @@ class TodoListProcessor:
             issues.append(f"文件读取失败: {file_path}, 错误: {e}")
             return False, issues
         
-        # 4. 根据文件类型进行不同的合规性检查
+        # 4. 从rules_loader获取适用于该文件的规则
+        try:
+            applicable_rules = self.rules_loader.get_applicable_rules_for_file(file_path)
+            logger.debug(f"为文件 {file_path} 加载规则: {applicable_rules}")
+        except Exception as e:
+            logger.warning(f"加载文件规则失败: {file_path}, 错误: {e}")
+            applicable_rules = {"encoding": "utf-8", "header_comment": "# 默认规则", "other_rules": {}}
+        
+        # 5. 根据文件类型和规则进行不同的合规性检查
         suffix = path.suffix.lower()
         
+        # 编码检查
+        encoding = applicable_rules.get("encoding", "utf-8")
+        try:
+            with open(path, 'r', encoding=encoding) as f:
+                full_content = f.read()
+        except UnicodeDecodeError:
+            issues.append(f"文件编码错误，应该使用 {encoding}: {file_path}")
+        except Exception:
+            full_content = content
+        
+        # 根据文件类型进行具体检查
         if suffix == '.py':
             # Python文件的检查
-            lines = content.splitlines()
+            lines = full_content.splitlines() if 'full_content' in locals() else content.splitlines()
             
             # 检查是否有shebang或编码声明
             has_shebang = any(line.startswith('#!') for line in lines[:3])
-            has_encoding = any('# -*- coding: utf-8 -*-' in line for line in lines[:5])
+            has_encoding = any('# -*- coding: utf-' in line for line in lines[:5])
             
             if not has_encoding and not has_shebang:
                 issues.append(f"Python文件缺少编码声明: {file_path}")
             
-            # 检查是否有头部注释
-            has_docstring = any(line.strip().startswith('"""') or line.strip().startswith("'''") for line in lines[:10])
+            # 检查是否有头部注释/文档字符串
+            has_docstring = any(line.strip().startswith('"""') or line.strip().startswith("'"'"') for line in lines[:10])
             if not has_docstring:
                 issues.append(f"Python文件缺少头部文档字符串: {file_path}")
+            
+            # 检查函数注释
+            for i, line in enumerate(lines):
+                if line.strip().startswith('def '):
+                    # 检查函数定义的下几行是否有注释
+                    has_func_docstring = False
+                    j = i + 1
+                    while j < min(i + 5, len(lines)):
+                        if lines[j].strip().startswith(('"""', "'"'"', '#')):
+                            has_func_docstring = True
+                            break
+                        if lines[j].strip() and not lines[j].strip().startswith(' '):
+                            break
+                        j += 1
+                    if not has_func_docstring:
+                        issues.append(f"Python函数缺少注释: {file_path}:{i+1}")
         
-        elif suffix in ['.md', '.txt']:
-            # Markdown或文本文件的基本检查
+        elif suffix in ['.md']:
+            # Markdown文件的检查
             if len(content.strip()) == 0:
                 issues.append(f"文件内容为空: {file_path}")
+            
+            # 检查是否有标题
+            if not any(line.strip().startswith(('# ', '## ', '### ')) for line in content.splitlines()[:10]):
+                issues.append(f"Markdown文件缺少标题: {file_path}")
+            
+            # 检查文件是否包含中英文README标识
+            if 'README' in path.name.upper():
+                if '使用指南' not in content and 'Guide' not in content:
+                    issues.append(f"README文件缺少使用指南内容: {file_path}")
         
         elif suffix == '.json':
             # JSON文件的检查
@@ -152,8 +201,29 @@ class TodoListProcessor:
                 import json
                 with open(path, 'r', encoding='utf-8') as f:
                     json.load(f)
-            except json.JSONDecodeError:
-                issues.append(f"JSON文件格式错误: {file_path}")
+            except json.JSONDecodeError as e:
+                issues.append(f"JSON文件格式错误: {file_path}, {str(e)}")
+        
+        elif suffix in ['.txt']:
+            # 文本文件的基本检查
+            if len(content.strip()) == 0:
+                issues.append(f"文件内容为空: {file_path}")
+        
+        elif suffix in ['.sh', '.bash']:
+            # Shell脚本检查
+            lines = full_content.splitlines() if 'full_content' in locals() else content.splitlines()
+            if not any(line.startswith('#!') for line in lines[:3]):
+                issues.append(f"Shell脚本缺少shebang: {file_path}")
+        
+        # 通用规则检查
+        if 'other_rules' in applicable_rules:
+            other_rules = applicable_rules['other_rules']
+            
+            # 检查文件大小限制
+            if 'max_size_bytes' in other_rules:
+                file_size = os.path.getsize(file_path)
+                if file_size > other_rules['max_size_bytes']:
+                    issues.append(f"文件大小超出限制: {file_path}, 大小: {file_size} bytes")
         
         # 如果没有发现问题，则文件合规
         is_compliant = len(issues) == 0
