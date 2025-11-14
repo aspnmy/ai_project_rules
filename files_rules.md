@@ -12,6 +12,9 @@
 - 未发现 `temp-*` 文件：0个（代码中有temp_file变量引用）
 - 未发现 `true-*` 文件：0个
 - 发现 `check_*.py` 文件：3个（网关域名检查、规则管理器检查、WSL2规则检查）
+- 发现 `rules_*.py` 文件：2个：rules_manager.py（规则管理器）、rules_manager_updated.py（更新版规则管理器）
+- 发现 `test_*.py` 文件：1个：test_rules_manager_updated.py（规则管理器测试脚本）
+- 发现状态文件：支持rules.lock（锁定）、rules.online（远程模式）、rules.offline（本地模式）
 
 实际文件命名以当前目录为准，规则文件会相应更新记录。
 
@@ -21,7 +24,8 @@
 - build-image-tools
 - portainerEE-Compose
 - registerConfig.json.example
-- rules_manager.py
+- rules_manager.py (规则管理器)
+- rules_manager_updated.py (更新版规则管理器，支持文件锁定、远程/本地模式)
 - wsl2_dev_environment_guide.md
 - wsl2_quick_reference.md
 - wsl_dev_manager.py
@@ -55,6 +59,8 @@
 ### 规则管理相关
 - **project_rules.md**: 项目全局规则配置文档
 - **rules_manager.py**: 全局规则配置管理器
+- **rules_manager_updated.py**: 更新版规则管理器（支持文件锁定、远程/本地模式）
+- **test_rules_manager_updated.py**: 规则管理器测试脚本
 - **files_rules.md**: 文件路径规则记录文件（本文件）
 
 ### WSL2开发环境相关
@@ -83,3 +89,9 @@
 ### 网关配置相关
 - **download-gateway**: 下载文件跳转域名配置文件
 - **dockerimage-gateway**: Docker镜像跳转域名配置文件
+
+### 规则文件状态管理
+- **rules.lock**: 规则文件锁定状态标识文件（存在时锁定规则更新）
+- **rules.online**: 规则文件远程模式标识文件（存在时从GitHub拉取规则）
+- **rules.offline**: 规则文件本地模式标识文件（存在时启用本地规则模式）
+- **rules.lock、rules.online、rules.offline**：三个文件只能存在一个
