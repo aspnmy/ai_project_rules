@@ -344,11 +344,16 @@
     - 支持值：`win11`(Win11专业版), `win11l`(Win11 LTS版), `win7u`(Win7专业版), `win2025`(Win Server 2025)
     - 当${wsl-distro}为上述Windows版本时，在WSL2中安装Podman环境并运行`podman-win-wsl2`配置
   - 开发环境路径：${wsl-devpath} '$HOME\\git_data\\${gitbranch}\\'🔴
-    - Windows容器环境：`c:\\${wsl-usr}\\git_data\\${gitbranch}`
-    - Linux/WSL环境：`${HOME}/git_data/${gitbranch}`
-    - 项目代码同步到此路径进行编译调试
+  - Windows容器环境：`c:\\${wsl-usr}\\git_data\\${gitbranch}`
+  - Linux/WSL环境：`${HOME}/git_data/${gitbranch}`
+  - 项目代码同步到此路径进行编译调试
   - 用户名配置：${wsl-usr} 'devman'🔴
   - 密码配置：${wsl-pwd} 'devman'🔴
+* **项目环境适配规则**：
+  - 对于${My_ProjectPath}项目，必须先检查project_rules中的WSL2规则再进行环境初始化🔴
+  - 如果${My_ProjectPath}中未配置wsl_distro值，必须检查项目已有代码内容判断适合的调试环境🔴
+  - 当检测到项目为Windows系统代码时，必须在WSL2默认分发环境中安装Podman，并加载专为Windows系统配置的调试容器，可以直接查找在${PG_UtilWslManagementReadmePath}目录中的wsl2部署脚本中关于windows系统中podman的配置，确保容器中安装了必要的工具和库，容器加载的配置文件，将其复制到${My_ProjectPath}中对应的目录结构中，无需自己手动配置，然后再验证${My_ProjectPath}是否可以进行wsl2连接🔴
+  - 禁止将Windows系统代码连接到Linux类容器，以确保代码能够正确编译执行🔴
 
 ### 中优先级规范（配置详情）
 * **容器配置**：

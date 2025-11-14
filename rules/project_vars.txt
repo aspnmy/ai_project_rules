@@ -29,6 +29,12 @@ PG_ProjectUpLang|project_var|"En"
 PG_DocsPath|project_var|".\\docs"
 PG_CSDNMDPath|project_var|".\\csdn_md"
 
+# 开发项目规则变量 - 重新初始化
+PG_MyProjectRulesPath|project_var|".\\rules\\myproject_rules\\myproject_rules.txt"
+PG_MyProjectRulesMdPath|project_var|".\\builder\\devWinWsl2\\myproject_rules.md"
+PG_MyProjectVarsPath|project_var|".\\rules\\myproject_rules\\myproject_vars.txt"
+PG_MyProjectInitStatus|project_var|"已重新初始化"
+
 # README文件路径注册 - 递归规范要求
 # Logs目录
 PG_LogsReadmePath|project_var|".\Logs\README.md"

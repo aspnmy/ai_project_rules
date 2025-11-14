@@ -1,15 +1,23 @@
-# 开发项目私有全局变量
+# 开发项目私有全局变量 - 重新初始化
 # 格式结构为：${var_name}|${var_type}|${var_title}
 # ${var_name} 代表项目统一的变量名
 # ${var_type} system_path_var 、 debug_var 、project_var
+# ${var_title} 变量值或描述
+
+# 初始化标记
+My_InitStatus|project_var|"已重新初始化"
 
 # ----下面登记变量结构
+# 数据库相关路径
 My_DBBACKUP_PATH|system_path_var|
 My_DBLISTS_PATH|system_path_var|
-My_RuleFileName|project_var|
+
+# 规则文件相关变量
+My_RuleFileName|project_var|"..\\..\\..\\builder\\devWinWsl2\\myproject_rules.md"
 My_BackupRuleFileName|project_var|
 My_UpRuleFileName|project_var|
-My_ProjectVarFileName|project_var|
+My_ProjectVarFileName|project_var|"myproject_vars.txt"
+
 # 硬编码路径注册
 My_WindowsContainerPath|project_var|
 My_DownloadGateway|project_var|
@@ -18,13 +26,14 @@ My_RemoteRulesURL|project_var|
 My_GithubRepoURL|project_var|
 My_NodeJSURL|project_var|
 My_DockerRegistryURL|project_var|
-My_ProjectLang|project_var|
-My_ProjectUpLang|project_var|
+My_ProjectLang|project_var|"CN"
+My_ProjectUpLang|project_var|"En"
+
 # 文档相关路径注册
 My_DocsPath|project_var|
 My_CSDNMDPath|project_var|
 
-# README文件路径注册
+# README文件路径注册 - 暂时留空，按需配置
 # Logs目录
 My_LogsReadmePath|project_var|
 My_LogsReadmeEnPath|project_var|
