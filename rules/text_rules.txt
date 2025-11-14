@@ -1,0 +1,88 @@
+# 文本文件合规性规则
+# 版本: 1.0
+# 创建日期: 2025-11-15
+# 描述: 定义通用文本文件（.txt, .info, .log, .offline等）的编码、格式和内容规范
+
+# 编码规范
+PG_Text_Encoding: UTF-8
+# 所有文本文件必须使用UTF-8编码
+
+# 文件头注释规范
+PG_Text_HeaderComment: 建议
+# 文本文件应包含文件头注释，说明文件用途、版本、创建日期等信息
+# 注释以#开头
+
+# 行尾规范
+PG_Text_LineEnding: 统一标准
+# 行尾字符应保持一致，Windows系统推荐使用CRLF(\r\n)，Unix/Linux系统推荐使用LF(\n)
+
+# 行长度规范
+PG_Text_LineLength: 建议限制
+# 单行文本长度建议不超过80个字符，过长应考虑换行
+
+# 空行规范
+PG_Text_BlankLines: 合理使用
+# 相关内容块之间应使用空行分隔，提高可读性
+
+# 注释规范
+PG_Text_CommentStyle: #号注释
+# 使用 # 注释内容 格式进行注释
+PG_Text_CommentPosition: 单独一行
+# 重要注释应单独一行，简短注释可放在行尾
+
+# 命名规范
+PG_Text_FileName: 描述性名称
+# 文本文件名应具有描述性，使用小写字母、数字和下划线
+# 文件名格式建议: description_date.txt
+
+# 特殊文件类型规范
+
+## 日志文件 (.log)
+PG_Log_FileFormat: 结构化格式
+# 日志文件应使用结构化格式，包含时间戳、日志级别、消息内容等字段
+PG_Log_TimestampFormat: ISO 8601
+# 日志时间戳应使用ISO 8601格式: YYYY-MM-DD HH:MM:SS
+PG_Log_LogLevels: 标准级别
+# 日志级别应使用标准级别: DEBUG, INFO, WARNING, ERROR, CRITICAL
+PG_Log_Rotation: 定期轮转
+# 日志文件应设置合理的轮转策略，避免单个文件过大
+
+## 信息文件 (.info)
+PG_Info_FileContent: 清晰描述
+# .info文件应包含清晰的信息描述，使用简洁明了的语言
+PG_Info_FileStructure: 章节组织
+# 复杂的.info文件应使用章节标题组织内容，提高可读性
+
+## 离线文件 (.offline)
+PG_Offline_FilePurpose: 明确用途
+# .offline文件应明确说明其用途和使用方法
+PG_Offline_FileContent: 必要信息
+# .offline文件应只包含必要的离线运行所需信息
+
+## 示例文件 (.example)
+PG_Example_FileContent: 完整示例
+# .example文件应包含完整、可运行的示例内容
+PG_Example_Commentary: 详细注释
+# 示例文件应包含详细的注释说明，解释各个部分的作用
+
+# 内容规范
+PG_Text_ContentQuality: 清晰准确
+# 文本内容应清晰、准确、易于理解
+PG_Text_SpellingGrammar: 正确无误
+# 文本内容应避免拼写和语法错误
+PG_Text_LineBreaks: 合理使用
+# 段落结束时应使用换行，不要在一行内包含多个段落
+
+# 格式规范
+PG_Text_Whitespace: 合理使用
+# 缩进应使用空格而非制表符，保持一致的缩进风格
+PG_Text_Punctuation: 标准标点
+# 使用标准的标点符号，保持标点符号的一致性
+
+# 文件大小规范
+PG_Text_FileSize: 合理控制
+# 单个文本文件大小建议不超过10MB，过大应考虑拆分或使用更适合的格式
+
+# 版本控制规范
+PG_Text_VersionControl: 明确版本
+# 包含重要信息的文本文件应在内容中明确版本号和修改历史

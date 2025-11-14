@@ -1,0 +1,20 @@
+# 此文件为项目规则文件Mini文件
+# 此文件用于规定开发模式和生成模式两种情况下应该加载哪些规则规范文件
+
+# 开发模式下，PG_RuleFileName为唯一规范基准文件
+# 生产模式下，PG_ProdProjectRuleFileName为唯一规范基准文件
+# 生产模式下调试开发项目，不读取PG_RuleFileName中的规则，只读取PG_ProdProjectRuleFileName中的规则和PG_sub_rulesfiles中的规则
+# 如果PG_ProdProjectRuleFileName中没有定义的规则，在PG_ProjectTodo中新增一条todo：要求人工在dev模式下增加规则，调试验证通过然后停止这个没有规则的项目调试。继续进入下一个todo或者人工输入的任务执行。
+# 人工在dev模式下增加规则，调试验证通过，再回到Prod模式下进行项目辅助开发，这样可以保证在Prod模式下的规则和子规则文件中定义的规则是一致的，可以快速辅助和验证，提高自动化开发效率。
+# 新增的规则必须在PG_RuleFileName中定义，否则会报错
+# 新增的规则必须在PG_ProdProjectRuleFileName中定义，否则会报错 
+# 新增的次级规则必须注册在PG_sub_rulesfiles中，否则会报错
+
+# [devProjectRules]
+PG_RuleFileName
+PG_sub_rulesfiles
+
+
+# [prodProjectRules]
+PG_ProdProjectRuleFileName
+PG_sub_rulesfiles

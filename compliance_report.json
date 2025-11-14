@@ -1,0 +1,92 @@
+{
+  "timestamp": "2025-11-15T02:54:23.927690",
+  "root_directory": "u:\\git\\binwalk\\.trae\\rules",
+  "total_file_types": 15,
+  "total_existing_rules": 16,
+  "missing_rules_count": 0,
+  "all_file_types": {
+    ".py": [
+      "u:\\git\\binwalk\\.trae\\rules\\check_file_compliance.py",
+      "u:\\git\\binwalk\\.trae\\rules\\check_todo_paths.py",
+      "u:\\git\\binwalk\\.trae\\rules\\process_todo_list.py"
+    ],
+    ".log": [
+      "u:\\git\\binwalk\\.trae\\rules\\compliance_check.log",
+      "u:\\git\\binwalk\\.trae\\rules\\process_todo_list.log",
+      "u:\\git\\binwalk\\.trae\\rules\\wsl2_install.log"
+    ],
+    ".json": [
+      "u:\\git\\binwalk\\.trae\\rules\\compliance_report.json",
+      "u:\\git\\binwalk\\.trae\\rules\\db_config\\backup_strategy.json",
+      "u:\\git\\binwalk\\.trae\\rules\\db_config\\file_operations.json"
+    ],
+    ".md": [
+      "u:\\git\\binwalk\\.trae\\rules\\compliance_report.md",
+      "u:\\git\\binwalk\\.trae\\rules\\MARKDOWN_STYLE_CONFIG.md",
+      "u:\\git\\binwalk\\.trae\\rules\\project_rules.md"
+    ],
+    ".css": [
+      "u:\\git\\binwalk\\.trae\\rules\\markdown_red_headings.css"
+    ],
+    ".offline": [
+      "u:\\git\\binwalk\\.trae\\rules\\rules.offline"
+    ],
+    ".txt": [
+      "u:\\git\\binwalk\\.trae\\rules\\db_config\\mcp_server_lists.txt",
+      "u:\\git\\binwalk\\.trae\\rules\\rules\\css_rules.txt",
+      "u:\\git\\binwalk\\.trae\\rules\\rules\\csv_rules.txt"
+    ],
+    ".example": [
+      "u:\\git\\binwalk\\.trae\\rules\\db_config\\registerConfig.json.example"
+    ],
+    ".yml": [
+      "u:\\git\\binwalk\\.trae\\rules\\docker\\podman-windockurr-wsl2-compose.yml",
+      "u:\\git\\binwalk\\.trae\\rules\\docker\\podman-winservercore-wsl2-compose.yml",
+      "u:\\git\\binwalk\\.trae\\rules\\docker\\portainerEE-Compose_wsl2.yml"
+    ],
+    ".csv": [
+      "u:\\git\\binwalk\\.trae\\rules\\docs\\rules_reports\\readme_check_report.csv"
+    ],
+    ".bat": [
+      "u:\\git\\binwalk\\.trae\\rules\\installers\\install_mcp_servers_wsl2.bat",
+      "u:\\git\\binwalk\\.trae\\rules\\installers\\setup_auto_sync_wsl2.bat"
+    ],
+    ".sh": [
+      "u:\\git\\binwalk\\.trae\\rules\\installers\\install_podman_windows_wsl2.sh",
+      "u:\\git\\binwalk\\.trae\\rules\\wsl_config\\wsl_dev_manager.sh"
+    ],
+    ".ps1": [
+      "u:\\git\\binwalk\\.trae\\rules\\rules\\test_efficiency_simple.ps1",
+      "u:\\git\\binwalk\\.trae\\rules\\rules\\test_query_efficiency.ps1",
+      "u:\\git\\binwalk\\.trae\\rules\\scripts\\check_readme_files_wsl2.ps1"
+    ],
+    "[无扩展名]": [
+      "u:\\git\\binwalk\\.trae\\rules\\scripts\\build-image-tools_wsl2",
+      "u:\\git\\binwalk\\.trae\\rules\\scripts\\dockerimage-gateway_wsl2",
+      "u:\\git\\binwalk\\.trae\\rules\\scripts\\download-gateway_wsl2"
+    ],
+    ".info": [
+      "u:\\git\\binwalk\\.trae\\rules\\wsl_config\\wsl-distro.info"
+    ]
+  },
+  "existing_rules": [
+    ".bat",
+    ".css",
+    ".csv",
+    ".example",
+    ".info",
+    ".js",
+    ".json",
+    ".log",
+    ".md",
+    ".offline",
+    ".ps1",
+    ".py",
+    ".sh",
+    ".txt",
+    ".yaml",
+    ".yml"
+  ],
+  "missing_rules": [],
+  "recommendations": []
+}

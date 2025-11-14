@@ -1,60 +1,7 @@
-# 文件整理任务清单
-# 生成日期: 2024-04-15
-# 更新日期: 2024-04-15
-dd# 最近重新初始化: 2024-04-15
-# 状态: 全部任务已完成
+todo：PG_sub_rulesfiles 参考其中登记次级规则路径登记规则，从PG_RuleFileName中分离功能性规范到rules\目录下新增对应的次级规则文件，并且把次级文件路径登记到PG_sub_rulesfiles中，最后测试是否能够按照次级规则从查询原则 提高本框架辅助指导开发代码中的效率
 
-## ✅ 需要移动到scripts目录的文件 (已完成)
-- ✅ build-image-tools -> scripts/build-image-tools
-- ✅ check_readme_compliance.py -> scripts/check_readme_compliance.py
-- ✅ dockerimage-gateway -> scripts/dockerimage-gateway
-- ✅ download-gateway -> scripts/download-gateway
-- ✅ register-docker-login -> scripts/register-docker-login
+todo：新增效率规则：PG_ProjectMod中的值，如果是devP,PG_RuleFileName，那么就加载PG_RuleFileName为唯一规范文件；如果是proD,PG_ProdProjectRuleFileName，那么就加载PG_ProdProjectRuleFileName为唯一规范文件；
 
-## ✅ 需要移动到installers目录的文件 (已完成)
-- ✅ install_mcp_servers.bat -> installers/install_mcp_servers.bat
-- ✅ install_podman_windows.sh -> installers/install_podman_windows.sh
-- ✅ setup_auto_sync.bat -> installers/setup_auto_sync.bat
+todo：新增自我进化规则及工作脚本： Self-evolution.py 此脚本的功能是监控PG_sub_rulesfiles中的注册的规则文件，如果有更新修改，就自动对本项目中的文件进行自我检查更新。第二是监控本项目和被开发的项目中的文件修改状态，如果有修改的情况就自动调用此脚本文件根据PG_sub_rulesfiles文件进行自我检查和更新，本脚本需要判断PG_ProjectMod,因为两种模式下的自我进化，除了PG_sub_rulesfiles是一致的，但是规范解释文件是不一致的，所以新增的规则加入的规范解释文件是可能会不一致的，如果不正确添加可能会造成异常错误。完成此脚本后进行调试验证，验证成功后把此脚本编译成独立exe文件在后台常驻执行监控，当此脚本监控到需要自我进化的文件时，把需要自我进化的文件路径，写入到 rules\todo_Self-evolution_lists.txt中,然后传输指令”执行rules\todo_Self-evolution_lists.txt中的todo“，知道AI自己执行。此指令的优先级在devP模式下应该高于人工，todo_Self-evolution_lists.txt自我进化的路径和人工正在对话或编辑的路径冲突时，先执行自我进化脚本；此指令在proD模式中权限低于人工，只允许在人工不对话，不操作的情况下执行。实现此功能后将此规则加入规范文件中并生成次级规则文件，注册到PG_sub_rulesfiles中
 
-## ✅ 需要移动到docker目录的文件 (已完成)
-- ✅ podman-win-wsl2 -> docker/podman-win-wsl2
-- ✅ podman-win-wsl2-compose.yml -> docker/podman-win-wsl2-compose.yml
-- ✅ portainerEE-Compose -> docker/portainerEE-Compose
-
-## ✅ 需要处理的临时文件 (已完成)
-- ✅ auto_sync.pid -> 已删除
-
-## ✅ 需要移动到配置目录的文件 (已完成)
-- ✅ registerConfig.json.example -> db_config/registerConfig.json.example
-- ✅ sync_config.json -> db_config/sync_config.json
-
-## ✅ 需要创建的目录 (已完成)
-- ✅ scripts/ - 用于存放脚本文件
-- ✅ installers/ - 用于存放安装相关脚本
-- ✅ docker/ - 用于存放Docker相关配置和脚本
-
-## ✅ 为支持开发项目增加必要的配置（部分已完成）
-
-- ✅ 新建 rules\myproject_rules 目录 - 用于存放当前规范支持中的开发项目，不是规范文件本身项目（已完成）
-- ✅ 在rules\myproject_rules 下新建 myproject_rules.txt - 用于存放被dev项目的私有规规范（已完成）
-- ✅ rules\myproject_rules\myproject_rules.txt 中记录了被开发的 dev项目的路径变量，及自己的私有规则，及是否执行全局规范的绝对性（已完成）
-- ✅ rules\myproject_rules\myproject_rules.txt 中如果有新增的内容，就要将其中的私有规范，更新到dev项目路径变量下新增一个myproject_rules.md文件（已完成）
-- ✅ rules\myproject_rules\myproject_rules.txt 中如果记录了规范type：Strict（ 则只使用 project_rules.md中的规范）来进行开发，myproject_rules.md规范文件中的规则不执行（已记录在myproject_rules.md中）
-- ✅ rules\myproject_rules\myproject_rules.txt 中如果记录了规范type：myproject_rules（ 则只使用 myproject_rules.md中的规范）来进行开发，但是代码规范仍然按照project_rules.md的规范进行开发（已记录在myproject_rules.md中）
-- ✅ rules\myproject_rules\myproject_rules.txt 中如果记录了规范type：myproject_rules（ 则只使用 myproject_rules.md中的规范）来进行开发，里面记录关于路径结构存放、docs文件规则、README.md规则没有私有定义的，仍然按照project_rules.md的规范进行开发（已记录在myproject_rules.md中）
-- ✅ rules\myproject_rules\myproject_rules.txt 中如果记录了规范type：all（ 则同时使用 project_rules.md +myproject_rules.md中的规范）来进行开发，其优先级按照以下原则设置：文件路径结构、docs文件规则、README.md规则、代码规范，project_rules.md 高于 myproject_rules.md（已记录在myproject_rules.md中）
-- ✅ 将此任务中牵涉到的 变量注册到project_vars.txt中，并更新到PG_RuleFileName中（已完成）
-- ✅ rules\myproject_rules\myproject_rules.txt如果更新了内容，那么需要将rules\project_vars.txt中的内容复制到rules\myproject_rules\myproject_vars.txt ,然后将PG_前缀上更改成My_ 作为开发项目的私有全局变量 ，然后清理掉变量中对应值 便于新开发项目初始化时 按myproject_vars.txt去注册私有项目的系统环境变量，不产生代码污染（已完成）
-- ✅ rules\myproject_rules\myproject_rules.txt 中如果配置了My_ProjectType，当配置是nil、Default或特定项目类型时，系统应根据类型应用相应的默认配置（已记录并实现）
-
-## ✅ 项目重新初始化任务（已完成）
-- ✅ 重新初始化 rules\myproject_rules\myproject_rules.txt 文件，更新默认配置值和注释
-- ✅ 更新 builder\devWinWsl2\myproject_rules.md 文件，使其与重新初始化的配置一致
-- ✅ 更新 project_vars.txt 中的开发项目规则变量，确保路径正确并添加初始化标记
-- ✅ 重新初始化 rules\myproject_rules\myproject_vars.txt 文件，添加必要的变量配置
-- ✅ 所有配置文件已同步更新，保持一致性
-
-- ✅ rules\myproject_rules\myproject_rules.txt 中记录了被开发的 dev项目的路径变量，及自己的私有规则，及是否执行全局规范的绝对性（已完成）
-
-- todo：此文件中已经完成的任务 如果超过50行，就把已经成功的任务移动到，success_rules.txt中，本文件中只保留todo的清单
-- ✅ 已完成：新增文件隔离规范，是指只递归向下查找PG_RuleFileName文件同级目录下方的内容，PG_RuleFileName文件同级目录为根目录，无论工作区中是否还存在其他项目 都向下查找，不向上查找
+todo:对项目根目录下面递归的所有文件结构 路径结构进行合规性检查 如果有新增的文件类型没有对应的合规规则，则需要更新规则在规范文件中，并合并相同功能的规则到次级规则文件中，并注册次级规则文件路径

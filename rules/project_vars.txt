@@ -15,6 +15,20 @@ PG_RuleFileName|project_var|".\\project_rules.md"
 PG_BackupRuleFileName|project_var|".\\rules\\rules\project_rules_backup.txt"
 PG_UpRuleFileName|project_var|".\\rules\\update_rules.txt"
 PG_ProjectVarFileName|project_var|".\\rules\\project_vars.txt"
+PG_ProjectTodo|project_var|".\\rules\todo_rules_lists.txt"
+
+# 生产环境规范文件
+PG_ProdProjectRuleFileName|project_var|".\\project_rules_mini.md"
+
+# 次级规则路径对应位置
+PG_sub_rulesfiles|project_var|".\\rules\\project_rules_sub.txt"
+".\\rules\\git_commit_rules.txt" 
+
+# PG_ProjectMod配置参数
+# devP,PG_RuleFileName
+# proD,PG_ProdProjectRuleFileName
+PG_ProjectMod|project_var|"devP,PG_RuleFileName"
+
 # 硬编码路径注册 - 根据中优先级规范要求
 PG_WindowsContainerPath|project_var|"c:\\\\${wsl-usr}\\\\git_data\\\\${gitbranch}"
 PG_DownloadGateway|project_var|"gateway.cf.shdr.org"
@@ -34,6 +48,9 @@ PG_MyProjectRulesPath|project_var|".\\rules\\myproject_rules\\myproject_rules.tx
 PG_MyProjectRulesMdPath|project_var|".\\builder\\devWinWsl2\\myproject_rules.md"
 PG_MyProjectVarsPath|project_var|".\\rules\\myproject_rules\\myproject_vars.txt"
 PG_MyProjectInitStatus|project_var|"已重新初始化"
+
+
+
 
 # README文件路径注册 - 递归规范要求
 # Logs目录

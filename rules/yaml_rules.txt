@@ -1,0 +1,84 @@
+# YAML文件合规性规则
+# 版本: 1.0
+# 创建日期: 2025-11-15
+# 描述: 定义YAML文件的编码、格式和内容规范
+
+# 编码规范
+PG_YAML_Encoding: UTF-8
+# 所有YAML文件必须使用UTF-8编码
+
+# 文件头注释规范
+PG_YAML_HeaderComment: 建议
+# YAML文件应包含适当的文件头注释，格式如下：
+# # 文件名: [文件名]
+# # 描述: [文件功能描述]
+# # 版本: [版本号]
+# # 日期: [创建/修改日期]
+
+# 缩进规范
+PG_YAML_Indentation: 2空格
+# 使用2个空格进行缩进，不允许使用Tab字符
+PG_YAML_IndentationConsistency: 必须一致
+# 整个文件的缩进必须保持一致
+
+# 语法规范
+PG_YAML_Syntax: 严格遵循YAML 1.2规范
+# 必须严格遵循YAML 1.2规范编写文件
+PG_YAML_ScalarStyle: 适当使用
+# 字符串值在必要时应使用引号（如包含特殊字符、空格、冒号等）
+PG_YAML_KeyOrder: 合理排序
+# 同级键应按照逻辑顺序排列，提高可读性
+
+# 空行和换行规范
+PG_YAML_BlankLines: 适当使用
+# 相关配置组之间应使用空行分隔，提高可读性
+PG_YAML_LineLength: 建议不超过80字符
+# 单行长度建议不超过80个字符，过长应考虑换行
+
+# 注释规范
+PG_YAML_CommentStyle: 标准YAML注释
+# 使用 # 注释内容 格式进行注释
+PG_YAML_CommentPosition: 行尾或单独一行
+# 注释可以放在行尾（有足够的空格分隔）或单独一行
+PG_YAML_CommentDensity: 适当添加
+# 复杂配置或特殊处理必须添加注释说明
+
+# 数据类型规范
+PG_YAML_BooleanValues: 小写true/false
+# 布尔值必须使用小写的true和false
+PG_YAML_NumericValues: 直接使用数字
+# 数值应直接表示，不需要引号
+PG_YAML_DateFormat: ISO 8601
+# 日期应使用ISO 8601格式 (YYYY-MM-DD)
+
+# 映射和序列规范
+PG_YAML_MapKeySpacing: 冒号后必须有空格
+# 映射键值对中，冒号后面必须有一个空格，例如: key: value
+PG_YAML_SequenceItemSpacing: 破折号后必须有空格
+# 序列项中，破折号后面必须有一个空格，例如: - item
+PG_YAML_NestedDepth: 控制嵌套深度
+# 嵌套深度不宜过深，建议不超过5层
+
+# 引用规范
+PG_YAML_Alias: 合理使用
+# 对于重复数据，应使用YAML别名（&anchor）和引用（*alias）功能
+# 别名格式: &anchor_name value
+# 引用格式: *anchor_name
+
+# 特殊字符处理
+PG_YAML_SpecialCharacters: 正确转义
+# 包含特殊字符的字符串必须正确处理，可选择使用引号或转义字符
+PG_YAML_ReservedWords: 注意处理
+# 对于YAML中的保留字或特殊值（如true、false、null等），如要作为字符串使用必须加引号
+
+# 文件扩展名规范
+PG_YAML_FileExtension: 标准扩展名
+# YAML文件应使用.yml扩展名（推荐）或.yaml扩展名
+
+# 环境变量规范
+PG_YAML_EnvironmentVariables: 统一格式
+# 环境变量引用应使用统一格式，如 ${ENV_VAR} 或 $ENV_VAR
+
+# 验证规范
+PG_YAML_Validation: 必须通过验证
+# 所有YAML文件必须能够通过标准YAML解析器的验证，确保语法正确

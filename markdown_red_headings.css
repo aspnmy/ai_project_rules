@@ -1,0 +1,7 @@
+/* Markdown红色标题样式 */
+h1, h2, h3, h4, h5, h6 {
+    color: #ff0000 !important;
+    font-weight: bold !important;
+}
+
+/* 保持其他Markdown样式不变 */

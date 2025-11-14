@@ -1,0 +1,45 @@
+# ```
+# 此文件记录PG_RuleFileName规则文件中牵涉到的功能规则中的次级规则路径
+# 再进行基于PG_RuleFileName合规性检查，或指导开发时，允许先通过读取此文件查看对应规范的次级规范文件来提高执行效率
+
+# -----下面开始记录次级规则文件
+
+# 日志文件规范次级规则文件
+rules\logs_rules.txt
+
+# WSL2开发环境规则次级规则文件
+rules\wsl2_rules_lists.txt
+
+# JavaScript编码规则文件
+rules\js_coding_rules.txt
+
+# HTML/CSS编码规则文件
+rules\html_css_coding_rules.txt
+
+# Markdown文档写作规则文件
+rules\markdown_rules.txt
+
+# Java编码规则文件
+rules\java_coding_rules.txt
+
+# Unity游戏Mod开发规则文件
+rules\unity_mod_rules.txt
+
+# 文件路径使用规则次级文件
+rules\path_usage_rules.txt
+
+# 自我进化规则次级文件
+rules\self_evolution_rules.txt
+
+# CSS样式规则次级文件
+rules\css_rules.txt
+
+# YAML配置文件规则次级文件
+rules\yaml_rules.txt
+
+# CSV数据文件规则次级文件
+rules\csv_rules.txt
+
+# 通用文本文件规则次级文件
+rules\text_rules.txt
+```

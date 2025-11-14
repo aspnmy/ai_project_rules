@@ -1,0 +1,80 @@
+# CSS文件合规性规则
+# 版本: 1.0
+# 创建日期: 2025-11-15
+# 描述: 定义CSS文件的编码、格式和内容规范
+
+# 编码规范
+PG_CSS_Encoding: UTF-8
+# 所有CSS文件必须使用UTF-8编码
+
+# 文件头注释规范
+PG_CSS_HeaderComment: 必需
+# CSS文件必须包含标准的文件头注释，格式如下：
+# /*!
+#  * 文件名: [文件名]
+#  * 描述: [文件功能描述]
+#  * 版本: [版本号]
+#  * 日期: [创建/修改日期]
+#  */
+
+# 缩进规范
+PG_CSS_Indentation: 2空格
+# 使用2个空格进行缩进，不允许使用Tab字符
+
+# 命名规范
+PG_CSS_ClassNameNaming: kebab-case
+# CSS类名必须使用kebab-case命名法，例如: .my-class-name
+PG_CSS_IDNaming: kebab-case
+# CSS ID必须使用kebab-case命名法，例如: #main-container
+
+# 格式规范
+PG_CSS_BraceStyle: 同一行
+# 大括号必须与选择器在同一行，例如: .class { ... }
+PG_CSS_Semicolon: 必需
+# 每个声明后面必须添加分号
+PG_CSS_PropertyValueSpacing: 必须有空格
+# 属性和值之间必须有空格，例如: color: red;
+
+# 注释规范
+PG_CSS_CommentStyle: 标准CSS注释
+# 使用 /* 注释内容 */ 格式进行注释
+PG_CSS_CommentDensity: 适当添加
+# 复杂样式或特殊处理的样式必须添加注释说明
+
+# 性能规范
+PG_CSS_SelectorComplexity: 避免过于复杂的选择器
+# 选择器层级不宜超过3层，避免使用通用选择器
+PG_CSS_FileSize: 合理控制文件大小
+# 单个CSS文件大小建议不超过100KB，过大应考虑拆分
+
+# 兼容性规范
+PG_CSS_BrowserCompatibility: 考虑主流浏览器
+# CSS代码必须兼容Chrome、Firefox、Safari、Edge等主流浏览器的最新两个版本
+PG_CSS_VendorPrefix: 必要时添加
+# 对于实验性CSS特性，必须添加适当的浏览器前缀
+
+# 导入规范
+PG_CSS_ImportLimit: 限制导入数量
+# 单个CSS文件中@import语句不应超过5个
+PG_CSS_ImportPosition: 文件顶部
+# @import语句必须放在文件顶部，位于所有其他规则之前
+
+# 响应式设计规范
+PG_CSS_MediaQueries: 标准格式
+# 媒体查询必须使用标准格式，例如: @media (max-width: 768px) { ... }
+PG_CSS_ResponsiveBreakpoints: 标准断点
+# 响应式断点应遵循标准规范：
+# - 移动设备: 320px - 767px
+# - 平板设备: 768px - 1023px
+# - 桌面设备: 1024px及以上
+
+# 变量使用规范
+PG_CSS_Variables: CSS自定义属性
+# 应使用CSS自定义属性(变量)管理颜色、尺寸等可复用值
+# 变量定义格式: --variable-name: value;
+# 变量使用格式: var(--variable-name)
+
+# 动画规范
+PG_CSS_Animations: 合理使用
+# 动画效果必须平滑，避免过度使用影响性能
+# 动画持续时间建议在0.2s-0.5s之间

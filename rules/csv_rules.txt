@@ -1,0 +1,80 @@
+# CSV文件合规性规则
+# 版本: 1.0
+# 创建日期: 2025-11-15
+# 描述: 定义CSV文件的编码、格式和内容规范
+
+# 编码规范
+PG_CSV_Encoding: UTF-8
+# 所有CSV文件必须使用UTF-8编码
+# 对于需要兼容旧系统的情况，可使用GBK编码，但必须在文件头注释中明确说明
+
+# 文件头注释规范
+PG_CSV_HeaderComment: 可选
+# CSV文件可包含第一行作为注释行，以#开头
+# 例如: # 文件描述: 数据导出文件, 创建日期: 2025-11-15
+
+# 分隔符规范
+PG_CSV_Delimiter: 逗号
+# CSV文件默认使用逗号(,)作为字段分隔符
+PG_CSV_CustomDelimiter: 明确声明
+# 如果使用非逗号分隔符（如分号;、制表符等），必须在相关文档中明确声明
+
+# 字段规范
+PG_CSV_HeaderRow: 必需
+# CSV文件必须包含标题行，说明每列数据的含义
+PG_CSV_Quoting: 必要时使用
+# 包含特殊字符（逗号、换行符、引号等）的字段必须用双引号包裹
+PG_CSV_QuoteEscaping: 双引号转义
+# 字段内部的双引号必须使用两个双引号进行转义
+
+# 行尾规范
+PG_CSV_LineEnding: 统一标准
+# 行尾字符应保持一致，Windows系统推荐使用CRLF(\r\n)，Unix/Linux系统推荐使用LF(\n)
+
+# 空值处理
+PG_CSV_NullValues: 明确表示
+# 空值应根据上下文使用空字符串、NULL、NA或其他明确的值表示
+# 不同CSV文件之间的空值表示方式应保持一致
+
+# 数字格式
+PG_CSV_NumericFormat: 标准格式
+# 数字应使用标准格式，整数不包含小数点，小数使用点号作为小数点
+# 货币和百分比应明确单位或在标题中说明
+PG_CSV_LargeNumbers: 避免使用千位分隔符
+# 大数字不应包含千位分隔符，如应使用1000000而不是1,000,000
+
+# 日期时间格式
+PG_CSV_DateFormat: ISO 8601
+# 日期应使用ISO 8601格式: YYYY-MM-DD
+PG_CSV_TimeFormat: 24小时制
+# 时间应使用24小时制: HH:MM:SS
+PG_CSV_DateTimeFormat: ISO 8601
+# 日期时间应使用ISO 8601格式: YYYY-MM-DDTHH:MM:SS
+
+# 内容一致性
+PG_CSV_ColumnConsistency: 列数一致
+# 每行数据的列数必须与标题行一致
+PG_CSV_DataTypes: 类型一致
+# 同一列的数据类型应保持一致
+
+# 文件大小规范
+PG_CSV_FileSize: 合理控制
+# 单个CSV文件大小建议不超过100MB，过大应考虑拆分
+PG_CSV_RowLimit: 合理控制
+# 单个CSV文件行数建议不超过100万行，超过应考虑拆分
+
+# 命名规范
+PG_CSV_FileName: 描述性名称
+# CSV文件名应具有描述性，使用小写字母、数字和下划线
+# 文件名格式建议: data_description_date.csv
+
+# 安全规范
+PG_CSV_SensitiveData: 加密或脱敏
+# 包含敏感数据的CSV文件必须进行加密或数据脱敏处理
+PG_CSV_DataValidation: 导入前验证
+# 导入CSV数据前必须验证数据格式和内容的合法性
+
+# 压缩规范
+PG_CSV_Compression: 大文件压缩
+# 对于大型CSV文件，建议使用gzip或zip格式进行压缩
+# 压缩文件扩展名: .csv.gz 或 .csv.zip
