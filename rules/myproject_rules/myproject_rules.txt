@@ -1,0 +1,26 @@
+# 开发项目私有规范配置文件
+# 格式结构：${配置项}|${配置值}
+
+# 项目路径变量
+My_ProjectPath|project_var|"u:/git/binwalk/.trae/rules"
+
+# 规范类型配置 (Strict, myproject_rules, all)
+My_SpecType|project_var|"myproject_rules"
+
+# 私有规则定义
+My_RuleFileName|project_var|"./myproject_rules.md"
+
+# 是否执行全局规范的绝对性
+My_UseGlobalRules|project_var|"false"
+
+# 代码规范遵循配置 (true/false)
+My_UseGlobalCodeSpec|project_var|"true"
+
+# 路径结构遵循全局规范 (true/false)
+My_UseGlobalPathSpec|project_var|"false"
+
+# 文档规则遵循全局规范 (true/false)
+My_UseGlobalDocSpec|project_var|"false"
+
+# README规则遵循全局规范 (true/false)
+My_UseGlobalReadmeSpec|project_var|"false"

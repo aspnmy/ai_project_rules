@@ -1,0 +1,31 @@
+[
+  {
+    "name": "获取数据库信息",
+    "tool": "get_file_info",
+    "params": {
+      "path": "D:\\你的机密项目文件路径\\文件名"
+    }
+  },
+  {
+    "name": "创建备份目录",
+    "tool": "create_directory",
+    "params": {
+      "path": "${PG_DBBACKUP_PATH}"
+    }
+  },
+  {
+    "name": "列出数据库目录",
+    "tool": "list_directory",
+    "params": {
+      "path": "${PG_DBLISTS_PATH}"
+    }
+  },
+  {
+    "name": "搜索数据库文件",
+    "tool": "search_files",
+    "params": {
+      "path": "${PG_DBLISTS_PATH}",
+      "pattern": "*.mdb"
+    }
+  }
+]

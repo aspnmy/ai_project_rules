@@ -1,0 +1,45 @@
+# 开发项目私有全局变量
+# 格式结构为：${var_name}|${var_type}|${var_title}
+# ${var_name} 代表项目统一的变量名
+# ${var_type} system_path_var 、 debug_var 、project_var
+
+# ----下面登记变量结构
+My_DBBACKUP_PATH|system_path_var|
+My_DBLISTS_PATH|system_path_var|
+My_RuleFileName|project_var|
+My_BackupRuleFileName|project_var|
+My_UpRuleFileName|project_var|
+My_ProjectVarFileName|project_var|
+# 硬编码路径注册
+My_WindowsContainerPath|project_var|
+My_DownloadGateway|project_var|
+My_DockerImageGateway|project_var|
+My_RemoteRulesURL|project_var|
+My_GithubRepoURL|project_var|
+My_NodeJSURL|project_var|
+My_DockerRegistryURL|project_var|
+My_ProjectLang|project_var|
+My_ProjectUpLang|project_var|
+# 文档相关路径注册
+My_DocsPath|project_var|
+My_CSDNMDPath|project_var|
+
+# README文件路径注册
+# Logs目录
+My_LogsReadmePath|project_var|
+My_LogsReadmeEnPath|project_var|
+# __pycache__目录
+My_PycacheReadmePath|project_var|
+My_PycacheReadmeEnPath|project_var|
+# db_config目录
+My_DbConfigReadmePath|project_var|
+My_DbConfigReadmeEnPath|project_var|
+# db_config_secure目录
+My_DbConfigSecureReadmePath|project_var|
+My_DbConfigSecureReadmeEnPath|project_var|
+# Util目录
+My_UtilReadmePath|project_var|
+My_UtilReadmeEnPath|project_var|
+# Util/check_tools目录
+My_UtilCheckToolsReadmePath|project_var|
+My_UtilCheckToolsReadmeEnPath|project_var|

@@ -1,0 +1,46 @@
+# 文件整理任务清单
+# 生成日期: 2024-04-15
+# 更新日期: 2024-04-15
+# 状态: 全部任务已完成
+
+## ✅ 需要移动到scripts目录的文件 (已完成)
+- ✅ build-image-tools -> scripts/build-image-tools
+- ✅ check_readme_compliance.py -> scripts/check_readme_compliance.py
+- ✅ dockerimage-gateway -> scripts/dockerimage-gateway
+- ✅ download-gateway -> scripts/download-gateway
+- ✅ register-docker-login -> scripts/register-docker-login
+
+## ✅ 需要移动到installers目录的文件 (已完成)
+- ✅ install_mcp_servers.bat -> installers/install_mcp_servers.bat
+- ✅ install_podman_windows.sh -> installers/install_podman_windows.sh
+- ✅ setup_auto_sync.bat -> installers/setup_auto_sync.bat
+
+## ✅ 需要移动到docker目录的文件 (已完成)
+- ✅ podman-win-wsl2 -> docker/podman-win-wsl2
+- ✅ podman-win-wsl2-compose.yml -> docker/podman-win-wsl2-compose.yml
+- ✅ portainerEE-Compose -> docker/portainerEE-Compose
+
+## ✅ 需要处理的临时文件 (已完成)
+- ✅ auto_sync.pid -> 已删除
+
+## ✅ 需要移动到配置目录的文件 (已完成)
+- ✅ registerConfig.json.example -> db_config/registerConfig.json.example
+- ✅ sync_config.json -> db_config/sync_config.json
+
+## ✅ 需要创建的目录 (已完成)
+- ✅ scripts/ - 用于存放脚本文件
+- ✅ installers/ - 用于存放安装相关脚本
+- ✅ docker/ - 用于存放Docker相关配置和脚本
+
+## ✅ 为支持开发项目增加必要的配置（部分已完成）
+
+- ✅ 新建 rules\myproject_rules 目录 - 用于存放当前规范支持中的开发项目，不是规范文件本身项目（已完成）
+- ✅ 在rules\myproject_rules 下新建 myproject_rules.txt - 用于存放被dev项目的私有规规范（已完成）
+- ✅ rules\myproject_rules\myproject_rules.txt 中记录了被开发的 dev项目的路径变量，及自己的私有规则，及是否执行全局规范的绝对性（已完成）
+- todo rules\myproject_rules\myproject_rules.txt 中如果有新增的内容，就要将其中的私有规范，更新到dev项目路径变量下新增一个myproject_rules.md文件
+- todo rules\myproject_rules\myproject_rules.txt 中如果记录了规范type：Strict（ 则只使用 project_rules.md中的规范）来进行开发，myproject_rules.md规范文件中的规则不执行
+- todo rules\myproject_rules\myproject_rules.txt 中如果记录了规范type：myproject_rules（ 则只使用 myproject_rules.md中的规范）来进行开发，但是代码规范仍然按照project_rules.md的规范进行开发
+- todo rules\myproject_rules\myproject_rules.txt 中如果记录了规范type：myproject_rules（ 则只使用 myproject_rules.md中的规范）来进行开发，里面记录关于路径结构存放、docs文件规则、README.md规则没有私有定义的，仍然按照project_rules.md的规范进行开发
+- todo rules\myproject_rules\myproject_rules.txt 中如果记录了规范type：all（ 则同时使用 project_rules.md +myproject_rules.md中的规范）来进行开发，其优先级按照以下原则设置：文件路径结构、docs文件规则、README.md规则、代码规范，project_rules.md 高于 myproject_rules.md
+- todo 将此任务中牵涉到的 变量注册到project_vars.txt中，并更新到PG_RuleFileName中
+- ✅ rules\myproject_rules\myproject_rules.txt如果更新了内容，那么需要将rules\project_vars.txt中的内容复制到rules\myproject_rules\myproject_vars.txt ,然后将PG_前缀上更改成My_ 作为开发项目的私有全局变量 ，然后清理掉变量中对应值 便于新开发项目初始化时 按myproject_vars.txt去注册私有项目的系统环境变量，不产生代码污染（已完成）

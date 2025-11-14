@@ -1,0 +1,13 @@
+# 本文件用于更新新规则到${PG_RuleFileName}或其他rule文件中
+# 并且用于记录更新规则的记录
+# 格式如下：add|"此处输入规则的中文语义"|${PG_RuleFileName}|${Status}
+# 使用方式：向聊天框输入 新增 ${PG_UpRuleFileName} 或者 add ${PG_UpRuleFileName}
+# AI自动处理完成以后，在${Status}中更新成 Success-yyyymmdd HH:MM:SS
+# AI自动处理完成以后，如果增加失败，在${Status}中更新成 Failure_${info}-yyyymmdd HH:MM:SS ${info}代表失败原因，比如超时、无写入权限、文件锁死、规则冲突等
+
+# ---- 下面登记新增的规则
+add|"用户要求清理工作区、整理工作区、梳理工作区、提交版本控制文件等要求时，检查工作区中test- ,test_,debug_;debug-前缀的文件中编写的功能是否可以长期复用，如果可以按照规则要求更名"|${PG_RuleFileName}|已添加
+add|"定期整理工作区目录结构：根据工作区功能使用要求把rules有关的规则文件更名成txt后缀，然后存放在rules\ ，和规则中相关联的脚本、功能应用 存放在Util\ 下，log文件存放在Logs\下，梳理完目录格式后，再检查所有的功能脚本是否有硬编码的路径代码，如果存在则把此路径注册到PG_ProjectVarFileName中"|PG_RuleFileName|已添加
+add|"定期整理工作区目录结构：根据工作区功能使用要求把工作区规则定义有关的文件 存放在 Config\ ，梳理完目录格式后，再检查所有的功能脚本是否有硬编码的路径代码，如果存在则把此路径注册到PG_ProjectVarFileName中，规则文件中有引用配置文件的路径也需要调整，功能文件中有引用配置参数的地方也需要对应调整，不应该有硬编码状态"|PG_RuleFileName|${Status}
+add|"所有功能脚本必须添加函数注释：注释需要包含函数的参数和返回值，使用Markdown格式或中文，注释必须在函数定义之前，不能缺失参数和返回值说明，使用中文表示"|PG_RuleFileName|已添加
+add|"规则规范文件备份机制：${PG_RuleFileName}中的文件每次更新或修改以后，需要同步修改${PG_BackupRuleFileName}中"|${PG_RuleFileName}|已添加

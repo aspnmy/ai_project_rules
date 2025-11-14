@@ -1,0 +1,8 @@
+{
+  "variable_name": "adsadjkds1",
+  "description": "数据库路径环境变量 - adsadjkds1",
+  "current_value": "D://你的机密项目文件路径//文件名",
+  "setup_command_windows": "setx adsadjkds1 \"D:\\\\你的机密项目文件路径\\\\文件名\"",
+  "setup_command_unix": "export adsadjkds1=D:/你的机密项目文件路径/文件名",
+  "example_value": "D:\\你的机密项目文件路径\\文件名"
+}

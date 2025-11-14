@@ -1,0 +1,7 @@
+# mcp_server:${mcp_server_name}|${system_path_var}
+# 使用说明：
+# filmcp_server_name 表示需要使用的的mcp_server_name，首先先查看本地是否存在，如果没有则安装，如果无法安装则返回提示给用户是否需要自建，或用其他类似替代mcp服务
+# system_path_var 表示在系统环境变量中的值，一般是8位字母数字随机值，通过系统环境变量，将实际路径等机密信息隐藏起来
+# 用户首次使用时先判断系统环境变量system_path_var是否存在，如果不存在启动set_SystemPathVar.py脚本，等用户交互输入实际要管理的文件路径、数据库连接信息配置文件实际路径后，把${system_path_var}值注册进系统环境变量中，
+# 以此可以保证统一化管理多mcp_server 管理数据库等机密信息时的安全性，项目上传git远程仓库时，也可以更安全
+mcp_server:filesystem|adsadjkds1

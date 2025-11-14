@@ -1,29 +1,51 @@
-target/**
-builder/local_env/**
+# ==================================
+# 当前项目忽略规则
+# ==================================
 
-builder/build-WinGui/dist/build/**
-builder/build-WinGui/dist/extractions/**
-**.spec
-builder/build-WinGui/dist/binwalk_gui.exe
-builder/build-WinGui/dist/binwalk.exe
-builder/build-WinGui/dist/Tests/**
-
-.trae/
-dependencies/binwalk-v2.3.4/
-
-builder/local_env/
-**/*.logs
-**/*.log
-**/**.pyc
+# ==================================
+# 缓存和临时文件
+# ==================================
+# Python缓存
+__pycache__/
 *.pyc
+*.cpython-*.pyc
 
-# autotests
-**/autotests/**
-test_*.py
-*.cpython-313.pyc
+# 日志文件
+*.log
+*.logs
 
+# 进程ID文件
+*.pid
+
+# ==================================
+# 配置文件
+# ==================================
 # 容器仓库配置文件
 registerConfig.json
 
-# python cache
-__pycache__/**
+# 同步配置文件
+*sync_config*.json
+
+# 敏感配置文件（保留示例文件）
+*config*.json
+!*config*.json.example
+
+# ==================================
+# 其他
+# ==================================
+# IDE相关
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Windows临时文件
+Thumbs.db
+*.tmp
+*.temp
+
+# 安装脚本生成的文件
+installers/*.log
+installers/*.tmp
+# 文档检查报告
+docs/rules_reports/**.csv

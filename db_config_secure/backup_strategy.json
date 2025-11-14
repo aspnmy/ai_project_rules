@@ -1,0 +1,18 @@
+{
+  "backup_policy": {
+    "daily_backup": true,
+    "weekly_backup": true,
+    "monthly_backup": true,
+    "max_backups": 10,
+    "backup_retention_days": 30
+  },
+  "backup_schedule": {
+    "daily_time": "02:00",
+    "weekly_day": "sunday",
+    "weekly_time": "03:00"
+  },
+  "backup_paths": {
+    "source_path": "${adsadjkds1}",
+    "backup_dir": "${adsadjkds1}/backup"
+  }
+}

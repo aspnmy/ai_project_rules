@@ -1,0 +1,71 @@
+# 此处登记本工作区中使用的私有全局变量
+# 格式结构为：${var_name}|${var_type}|${var_title}
+# ${var_name} 代表项目统一的变量名，在本项目中全局统一化使用规范常用英文，能够让AI主动识别到正确的含义
+# ${var_type} system_path_var 、 debug_var 、project_var
+# system_path_var代表此变量类型使用系统环境变量读取，${var_title}直接记录为nil，读取方式可以复用或参考db_lists.txt中的系统变量读取方法
+# debug_var 代表此变量类型为调试所用默认值，可以明文登记在${var_title}中，初始化时在工作区新增debug_vars.json 内容如下 {"debug_vars":["${var_name01}":"${var_title01}","${var_name02}":"${var_title02}"]}
+# json文件默认让Ai更加描述配置文件自行生成，尽量不做人为干预
+# project_var 主要登记本工作区中主要的业务变量，比如规则文件名路径
+# 变量前缀规范：常用约定 PG_ 代表本工作区全局变量 ； priv_${filename}_${function_designation} 代表私有变量${filename}代表此变量用于哪个文件名中、${function_designation}代表变量的功能名称，便于快速从注释中定位，真实的变量名应该是 priv_${filename}_${function_designation}
+
+# ----下面登记变量结构
+PG_DBBACKUP_PATH|system_path_var|dev_DBBACKUP_PATH
+PG_DBLISTS_PATH|system_path_var|dev_DBLISTS_PATH
+PG_RuleFileName|project_var|".\\project_rules.md"
+PG_BackupRuleFileName|project_var|".\\rules\\rules\project_rules_backup.txt"
+PG_UpRuleFileName|project_var|".\\rules\\update_rules.txt"
+PG_ProjectVarFileName|project_var|".\\rules\\project_vars.txt"
+# 硬编码路径注册 - 根据中优先级规范要求
+PG_WindowsContainerPath|project_var|"c:\\\\${wsl-usr}\\\\git_data\\\\${gitbranch}"
+PG_DownloadGateway|project_var|"gateway.cf.shdr.org"
+PG_DockerImageGateway|project_var|"gateway.cf.shdr.org"
+PG_RemoteRulesURL|project_var|"https://raw.githubusercontent.com/aspnmy/ai_project_rules/refs/heads/master/project_rules.md"
+PG_GithubRepoURL|project_var|"https://github.com/aspnmy/ai_project_rules"
+PG_NodeJSURL|project_var|"https://nodejs.org/"
+PG_DockerRegistryURL|project_var|"https://registry.hub.docker.com"
+PG_ProjectLang|project_var|"CN"
+PG_ProjectUpLang|project_var|"En"
+# 文档相关路径注册
+PG_DocsPath|project_var|".\\docs"
+PG_CSDNMDPath|project_var|".\\csdn_md"
+
+# README文件路径注册 - 递归规范要求
+# Logs目录
+PG_LogsReadmePath|project_var|".\Logs\README.md"
+PG_LogsReadmeEnPath|project_var|".\Logs\README_En.md"
+# __pycache__目录
+PG_PycacheReadmePath|project_var|".\__pycache__\README.md"
+PG_PycacheReadmeEnPath|project_var|".\__pycache__\README_En.md"
+# db_config目录
+PG_DbConfigReadmePath|project_var|".\db_config\README.md"
+PG_DbConfigReadmeEnPath|project_var|".\db_config\README_En.md"
+# db_config_secure目录
+PG_DbConfigSecureReadmePath|project_var|".\db_config_secure\README.md"
+PG_DbConfigSecureReadmeEnPath|project_var|".\db_config_secure\README_En.md"
+# Util目录
+PG_UtilReadmePath|project_var|".\Util\README.md"
+PG_UtilReadmeEnPath|project_var|".\Util\README_En.md"
+# Util/check_tools目录
+PG_UtilCheckToolsReadmePath|project_var|".\Util\check_tools\README.md"
+PG_UtilCheckToolsReadmeEnPath|project_var|".\Util\check_tools\README_En.md"
+# Util/db_management目录
+PG_UtilDbManagementReadmePath|project_var|".\Util\db_management\README.md"
+PG_UtilDbManagementReadmeEnPath|project_var|".\Util\db_management\README_En.md"
+# Util/rules_management目录
+PG_UtilRulesManagementReadmePath|project_var|".\Util\rules_management\README.md"
+PG_UtilRulesManagementReadmeEnPath|project_var|".\Util\rules_management\README_En.md"
+# Util/setup_tools目录
+PG_UtilSetupToolsReadmePath|project_var|".\Util\setup_tools\README.md"
+PG_UtilSetupToolsReadmeEnPath|project_var|".\Util\setup_tools\README_En.md"
+# Util/wsl_management目录
+PG_UtilWslManagementReadmePath|project_var|".\Util\wsl_management\README.md"
+PG_UtilWslManagementReadmeEnPath|project_var|".\Util\wsl_management\README_En.md"
+# rules目录
+PG_RulesReadmePath|project_var|".\rules\README.md"
+PG_RulesReadmeEnPath|project_var|".\rules\README_En.md"
+# docs目录
+PG_DocsDirReadmePath|project_var|".\docs\README.md"
+PG_DocsDirReadmeEnPath|project_var|".\docs\README_En.md"
+# csdn_md目录
+PG_CSDNMDReadmePath|project_var|".\csdn_md\README.md"
+PG_CSDNMDReadmeEnPath|project_var|".\csdn_md\README_En.md"

@@ -1,0 +1,21 @@
+{
+  "daily_tasks": [
+    "检查数据库文件大小",
+    "验证文件完整性",
+    "创建增量备份"
+  ],
+  "weekly_tasks": [
+    "创建完整备份",
+    "清理旧备份文件",
+    "检查磁盘空间"
+  ],
+  "monthly_tasks": [
+    "数据库文件压缩",
+    "性能分析",
+    "备份恢复测试"
+  ],
+  "maintenance_paths": {
+    "db_path": "${adsadjkds1}",
+    "backup_path": "${adsadjkds1}/backup"
+  }
+}

@@ -13,7 +13,7 @@
 - 未发现 `true-*` 文件：0个
 - 发现 `check_*.py` 文件：3个（网关域名检查、规则管理器检查、WSL2规则检查）
 - 发现 `rules_*.py` 文件：2个：rules_manager.py（规则管理器）、rules_manager_updated.py（更新版规则管理器）
-- 发现 `test_*.py` 文件：1个：test_rules_manager_updated.py（规则管理器测试脚本）
+- 发现 `*_tester.py` 文件：2个：db_tools_tester.py（数据库工具测试脚本）、rules_manager_tester.py（规则管理器测试脚本）
 - 发现状态文件：支持rules.lock（锁定）、rules.online（远程模式）、rules.offline（本地模式）
 
 实际文件命名以当前目录为准，规则文件会相应更新记录。
@@ -43,7 +43,8 @@
 # 当前无临时文件
 
 ## 测试代码
-# 当前无测试文件
+- db_tools_tester.py (数据库工具测试脚本) [TESTER]
+- rules_manager_tester.py (规则管理器测试脚本) [TESTER]
 
 ## 文件说明
 
@@ -60,7 +61,8 @@
 - **project_rules.md**: 项目全局规则配置文档
 - **rules_manager.py**: 全局规则配置管理器
 - **rules_manager_updated.py**: 更新版规则管理器（支持文件锁定、远程/本地模式）
-- **test_rules_manager_updated.py**: 规则管理器测试脚本
+- **rules_manager_tester.py**: 规则管理器测试脚本 [TESTER]
+- **db_tools_tester.py**: 数据库工具测试脚本 [TESTER]
 - **files_rules.md**: 文件路径规则记录文件（本文件）
 
 ### WSL2开发环境相关
@@ -95,3 +97,20 @@
 - **rules.online**: 规则文件远程模式标识文件（存在时从GitHub拉取规则）
 - **rules.offline**: 规则文件本地模式标识文件（存在时启用本地规则模式）
 - **rules.lock、rules.online、rules.offline**：三个文件只能存在一个
+
+### README文件规范
+- **README.md**: 每个文件路径下必须存在的默认语言说明文件，使用PG_ProjectLang值指定的语言
+- **README_En.md**: 英文版本说明文件，当PG_ProjectUpLang变量中包含"En"时必须存在
+- 其他语言版本：README_{LangCode}.md，根据PG_ProjectUpLang变量中的语言标识动态生成
+- README文件必须包含目录功能说明、文件结构、使用方法等基本信息
+
+### 文档指南文件规范
+- **docs/docs_{功能名}_使用指南.md**: 功能指南文档，存放在docs目录下
+- **csdn_md/**: CSDN技术博客md文件存放目录
+- 当docs目录下的指南文件更新时，需要同步更新csdn_md目录下对应的技术博客md文件
+- 在本文件中记录docs文件与csdn_md文件的对应关系，便于同步更新
+
+### 文档文件对应关系表
+| docs文件 | csdn_md文件 | 备注 |
+|---------|------------|------|
+| docs/docs_project_rules_使用指南.md | csdn_md/csdn_project_rules_使用指南.md | 项目规则使用指南 |
