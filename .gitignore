@@ -24,3 +24,6 @@ test_*.py
 
 # 容器仓库配置文件
 registerConfig.json
+
+# python cache
+__pycache__/**
