@@ -1,5 +1,27 @@
 # 文件路径规则记录
 
+## WSL2相关文件命名规范
+### 已完成更名的文件列表（已添加wsl2关键词）：
+* **容器配置文件**：
+  - `..\..\docker\portainerEE-Compose_wsl2.yml`
+
+* **脚本文件**：
+  - `..\..\scripts\check_readme_compliance_wsl2.py`
+  - `..\..\scripts\check_readme_files_wsl2.ps1`
+  - `..\..\scripts\build-image-tools_wsl2`
+  - `..\..\scripts\dockerimage-gateway_wsl2`
+  - `..\..\scripts\download-gateway_wsl2`
+  - `..\..\scripts\register-docker-login_wsl2`
+
+* **安装脚本**：
+  - `..\..\installers\install_mcp_servers_wsl2.bat`
+  - `..\..\installers\install_podman_windows_wsl2.sh`
+  - `..\..\installers\setup_auto_sync_wsl2.bat`
+
+### 已符合规范的文件（已包含wsl或wsl2关键词）：
+* 所有文件名中包含wsl或wsl2的文件
+* WSL2环境配置文件、部署脚本、检查工具等
+
 ## 📋 兼容性说明
 为了处理不同开发环境下的命名习惯差异，以下命名视为等效：
 - `test-***` ≡ `test_***` (测试文件)

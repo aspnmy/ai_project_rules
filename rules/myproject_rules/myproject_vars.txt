@@ -13,7 +13,7 @@ My_DBBACKUP_PATH|system_path_var|
 My_DBLISTS_PATH|system_path_var|
 
 # 规则文件相关变量
-My_RuleFileName|project_var|"..\\..\\..\\builder\\devWinWsl2\\myproject_rules.md"
+My_RuleFileName|project_var|"..\\..\\builder\\devWinWsl2\\myproject_rules.md"
 My_BackupRuleFileName|project_var|
 My_UpRuleFileName|project_var|
 My_ProjectVarFileName|project_var|"myproject_vars.txt"

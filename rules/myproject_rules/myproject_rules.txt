@@ -32,5 +32,9 @@ My_UseGlobalDocSpec|project_var|"true"
 # README规则遵循全局规范 (true/false) - 默认遵循全局README规范
 My_UseGlobalReadmeSpec|project_var|"true"
 
+# 文件隔离规范 (true/false) - 默认启用文件隔离
+# 启用后，系统将以My_RuleFileName中记录的文件的同级目录为根目录，仅向下递归查找内容，不向上查找
+My_FileIsolationEnabled|project_var|"true"
+
 # 初始化时间戳
-My_InitTime|project_var|"重新初始化完成"
+My_InitTime|project_var|"重新初始化完成 - 添加文件隔离规范"

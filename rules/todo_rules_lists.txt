@@ -55,4 +55,6 @@ dd# 最近重新初始化: 2024-04-15
 - ✅ 所有配置文件已同步更新，保持一致性
 
 - ✅ rules\myproject_rules\myproject_rules.txt 中记录了被开发的 dev项目的路径变量，及自己的私有规则，及是否执行全局规范的绝对性（已完成）
-- todo: My_ProjectPath 或者 如果不存在 WSL2纯净开发环境规则 应该检查project_rules中的规则，再进行My_ProjectPath 的wsl2开发环境初始化准备，如果My_ProjectPath 中没有配置wsl_distro值，就应该检查My_ProjectPath 中已经存在的代码内容判断是应该在那种环境下进行调试，比如 wsl_distro值是 win系统 就应该在wsl2的默认分发环境中按照podman，然后以podman去加载专为win系统配置的调试容器 ，而不是去连接linux类的容器，这样win系统中的代码是没有办法执行编译的，充分理解此规则，然后将此规则增加到规范文件中
+
+- todo：此文件中已经完成的任务 如果超过50行，就把已经成功的任务移动到，success_rules.txt中，本文件中只保留todo的清单
+- ✅ 已完成：新增文件隔离规范，是指只递归向下查找PG_RuleFileName文件同级目录下方的内容，PG_RuleFileName文件同级目录为根目录，无论工作区中是否还存在其他项目 都向下查找，不向上查找
